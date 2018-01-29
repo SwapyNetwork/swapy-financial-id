@@ -1,7 +1,9 @@
-import React from 'react';
-import App from './App';
+/* global it, expect */
 
+import React from 'react';
 import renderer from 'react-test-renderer';
+
+import App from './App';
 
 it('renders without crashing', () => {
   const rendered = renderer.create(<App />).toJSON();
