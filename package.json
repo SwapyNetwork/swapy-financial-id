@@ -24,7 +24,8 @@
     "test": "npm run flow && npm run lint && node node_modules/jest/bin/jest.js",
     "flow": "flow",
     "lint": "eslint .",
-    "create-stub": "flow-typed create-stub"
+    "create-stub": "flow-typed create-stub",
+    "fix-start": "echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
   },
   "jest": {
     "preset": "jest-expo"
@@ -32,6 +33,7 @@
   "dependencies": {
     "expo": "^25.0.0",
     "react": "16.2.0",
-    "react-native": "0.52.2"
+    "react-native": "0.52.2",
+    "web3": "^1.0.0-beta.29"
   }
 }

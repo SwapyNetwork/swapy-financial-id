@@ -1,21 +1,25 @@
-// @flow
+/* @flow */
+/* eslint-disable global-require */
 
 import React from 'react';
-import { StyleSheet, Button, View } from 'react-native';
+import { StyleSheet, Button, View, Image } from 'react-native';
 
-const onPress = () => true;
+import Web3 from './app/lib/web3';
+
+const onPress = async () => {
+  console.log(await Web3.eth.getAccounts());
+};
 
 export default () => (
   <View style={styles.container}>
+    <Image
+      source={require('./app/assets/logo.png')}
+    />
+
     <Button
       onPress={onPress}
       title="Import Funds"
       accessibilityLabel="Import funds from another Ethereum wallet"
-    />
-    <Button
-      onPress={onPress}
-      title="Create New Wallet"
-      accessibilityLabel="Create new Ethereum wallet"
     />
   </View>
 );
