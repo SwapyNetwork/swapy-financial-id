@@ -7,7 +7,7 @@ import { StyleSheet, Button, View, Image } from 'react-native';
 import './global';
 import Web3 from './app/lib/web3';
 // $FlowFixMe
-import { INFURA_KEY } from './env';
+import { INFURA_KEY } from './env'; // eslint-disable-line
 
 type Props = {}
 
