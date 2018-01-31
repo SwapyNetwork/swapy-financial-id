@@ -5,8 +5,9 @@ import React from 'react';
 import { StyleSheet, Button, View, Image } from 'react-native';
 
 import './global';
-import { INFURA_KEY } from './env';
 import Web3 from './app/lib/web3';
+// $FlowFixMe
+import { INFURA_KEY } from './env';
 
 type Props = {}
 
