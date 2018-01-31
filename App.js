@@ -4,25 +4,41 @@
 import React from 'react';
 import { StyleSheet, Button, View, Image } from 'react-native';
 
+import './global';
+import { INFURA_KEY } from './env';
 import Web3 from './app/lib/web3';
 
-const onPress = async () => {
-  console.log(await Web3.eth.getAccounts());
-};
+type Props = {}
 
-export default () => (
-  <View style={styles.container}>
-    <Image
-      source={require('./app/assets/logo.png')}
-    />
+export default class App extends React.Component<Props> {
+  constructor() {
+    super();
+    this.web3 = new Web3(INFURA_KEY);
+  }
 
-    <Button
-      onPress={onPress}
-      title="Import Funds"
-      accessibilityLabel="Import funds from another Ethereum wallet"
-    />
-  </View>
-);
+  onPress = async () => {
+    const block = await this.web3.instance.eth.getBlock('latest');
+
+    alert(block.hash);
+  }
+
+  web3: Web3;
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Image
+          source={require('./app/assets/logo.png')}
+        />
+        <Button
+          onPress={this.onPress}
+          title="Import Funds"
+          accessibilityLabel="Import funds from another Ethereum wallet"
+        />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
