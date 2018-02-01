@@ -3,11 +3,10 @@
 
 import React from 'react';
 import { StyleSheet, Button, View, Image } from 'react-native';
+import { INFURA_KEY } from 'react-native-dotenv'; //eslint-disable-line
 
 import './global';
 import Web3 from './app/lib/web3';
-// $FlowFixMe
-import { INFURA_KEY } from './env'; // eslint-disable-line
 
 type Props = {}
 
