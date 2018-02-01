@@ -1,24 +1,44 @@
-// @flow
+/* @flow */
+/* eslint-disable global-require */
 
 import React from 'react';
-import { StyleSheet, Button, View } from 'react-native';
+import { StyleSheet, Button, View, Image } from 'react-native';
+import { INFURA_KEY } from 'react-native-dotenv'; //eslint-disable-line
 
-const onPress = () => true;
+import './global';
+import Web3 from './app/lib/web3';
 
-export default () => (
-  <View style={styles.container}>
-    <Button
-      onPress={onPress}
-      title="Import Funds"
-      accessibilityLabel="Import funds from another Ethereum wallet"
-    />
-    <Button
-      onPress={onPress}
-      title="Create New Wallet"
-      accessibilityLabel="Create new Ethereum wallet"
-    />
-  </View>
-);
+type Props = {}
+
+export default class App extends React.Component<Props> {
+  constructor() {
+    super();
+    this.web3 = new Web3(INFURA_KEY);
+  }
+
+  onPress = async () => {
+    const block = await this.web3.instance.eth.getBlock('latest');
+
+    alert(block.hash);
+  }
+
+  web3: Web3;
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Image
+          source={require('./app/assets/logo.png')}
+        />
+        <Button
+          onPress={this.onPress}
+          title="Import Funds"
+          accessibilityLabel="Import funds from another Ethereum wallet"
+        />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
