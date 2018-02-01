@@ -24,7 +24,8 @@
     "test": "npm run flow && npm run lint && node node_modules/jest/bin/jest.js",
     "flow": "flow",
     "lint": "eslint .",
-    "create-stub": "flow-typed create-stub"
+    "create-stub": "flow-typed create-stub",
+    "install-typings": "flow-typed install"
   },
   "jest": {
     "preset": "jest-expo"

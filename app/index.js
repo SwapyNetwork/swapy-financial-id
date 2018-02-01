@@ -3,17 +3,15 @@
 import React from 'react';
 import { StyleSheet, Button, View } from 'react-native';
 
-const onPress = () => true;
-
-const Index = () => (
+const Index = ({ navigation }) => (
   <View style={styles.container}>
     <Button
-      onPress={onPress}
+      onPress={() => navigation.navigate('ImportFunds')}
       title="Import Funds"
       accessibilityLabel="Import funds from another Ethereum wallet"
     />
     <Button
-      onPress={onPress}
+      onPress={() => navigation.navigate('NewWallet')}
       title="Create New Wallet"
       accessibilityLabel="Create new Ethereum wallet"
     />
