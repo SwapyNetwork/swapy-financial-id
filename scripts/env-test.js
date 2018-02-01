@@ -1,3 +1,8 @@
+/**
+ * This script creates a .env file and includes the current process.env keys on it.
+ * It's intended to include Travis env variables into React Native
+ */
+
 const fs = require('fs');
 
 const stream = fs.createWriteStream('.env');

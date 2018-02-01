@@ -6,7 +6,6 @@ cache:
   - node_modules
 script:
 - node scripts/env-test
-- cat .env
 - npm test
 notifications:
   slack:
