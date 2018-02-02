@@ -7,5 +7,3 @@ import HomeStack from './app/config/router';
 const App = () => <HomeStack />;
 
 export default App;
-
-
