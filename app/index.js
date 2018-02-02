@@ -1,6 +1,6 @@
 /* @flow */
 /* eslint-disable global-require */
-
+import type { NavigationScreenProp } from 'react-navigation';
 import React from 'react';
 import { StyleSheet, Button, View, Image, TouchableOpacity } from 'react-native';
 import { INFURA_KEY } from 'react-native-dotenv'; //eslint-disable-line
@@ -8,7 +8,9 @@ import { INFURA_KEY } from 'react-native-dotenv'; //eslint-disable-line
 import '../global';
 import Web3 from './lib/web3';
 
-type Props = {}
+type Props = {
+  navigation: NavigationScreenProp<*>
+}
 
 export default class Index extends React.Component<Props> {
   constructor() {
