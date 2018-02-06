@@ -9,16 +9,17 @@ handleQRCode = (result) => {
 
 const ExchangeAuth = () => {
   return (
-     <View>
-      <StatusBar hidden={true}></StatusBar>
-      <BarCodeScanner 
+    <View>
+      <StatusBar hidden />
+      <BarCodeScanner
         onBarCodeRead={this.handleQRCode}
         style={{
           height: Dimensions.get('window').height,
           width: Dimensions.get('window').width,
-        }}/>
+        }}
+      />
     </View>
-  )
+  );
 };
 
 export default ExchangeAuth;
