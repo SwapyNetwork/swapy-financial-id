@@ -40,6 +40,11 @@ export default class Index extends React.Component {
           title="Create Wallet"
           accessibilityLabel="Create new Ethereum Wallet"
         />
+        <Button
+          onPress={() => this.props.navigation.navigate('ExchangeAuth')}
+          title="Swapy Exchange Auth"
+          accessibilityLabel="Swapy Exchange Authentication via QRCode"
+        />
       </View>
     );
   }

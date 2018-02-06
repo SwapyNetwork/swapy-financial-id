@@ -5,6 +5,7 @@ import Index from '../index';
 
 import NewWallet from '../screens/newWallet';
 import ImportFunds from '../screens/importFunds';
+import ExchangeAuth from '../screens/exchangeAuth';
 
 const HomeStack = StackNavigator({
   Home: {
@@ -23,6 +24,12 @@ const HomeStack = StackNavigator({
     screen: NewWallet,
     navigationOptions: () => ({
       title: 'Create new wallet',
+    }),
+  },
+  ExchangeAuth: {
+    screen: ExchangeAuth,
+    navigationOptions: () => ({
+      title: 'Swapy Exchange Auth',
     }),
   },
 });
