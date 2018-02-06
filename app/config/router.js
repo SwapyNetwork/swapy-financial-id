@@ -29,7 +29,7 @@ const HomeStack = StackNavigator({
   ExchangeAuth: {
     screen: ExchangeAuth,
     navigationOptions: () => ({
-      title: 'Swapy Exchange Auth',
+      title: 'Exchange Auth',
     }),
   },
 });
