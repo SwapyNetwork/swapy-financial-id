@@ -30,6 +30,7 @@ const HomeStack = StackNavigator({
     screen: ExchangeAuth,
     navigationOptions: () => ({
       title: 'Exchange Auth',
+      header: null,
     }),
   },
 });
