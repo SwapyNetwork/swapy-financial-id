@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, StatusBar } from 'react-native';
 
 import { BarCodeScanner } from 'expo';
 
@@ -10,6 +10,7 @@ handleQRCode = (result) => {
 const ExchangeAuth = () => {
   return (
      <View>
+      <StatusBar hidden={true}></StatusBar>
       <BarCodeScanner 
         onBarCodeRead={this.handleQRCode}
         style={{
