@@ -1,9 +1,11 @@
-import Web3 from 'web3';
+// @flow
 
-export default class web3 {
+import Web3Lib from 'web3';
+
+export default class Web3 {
   instance;
 
-  constructor(HttpProvider) {
-    this.instance = new Web3(new Web3.providers.HttpProvider(HttpProvider));
+  constructor(HttpProvider: string) {
+    this.instance = new Web3Lib(new Web3Lib.providers.HttpProvider(HttpProvider));
   }
 }

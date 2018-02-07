@@ -6,17 +6,19 @@ import { INFURA_KEY } from 'react-native-dotenv'; //eslint-disable-line
 
 import '../global';
 import Web3 from './lib/web3';
+import Wallet from './lib/wallet';
 
 export default class Index extends React.Component {
   constructor() {
     super();
     this.web3 = new Web3(INFURA_KEY);
+    this.wallet = new Wallet();
   }
 
   onPress = async () => {
     const block = await this.web3.instance.eth.getBlock('latest');
-
-    alert(block.hash);
+    const mnemonic = await this.wallet.generateMnemonic();
+    alert(block.hash, mnemonic);
   }
 
   web3: Web3;
