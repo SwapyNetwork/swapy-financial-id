@@ -6,6 +6,7 @@ import Index from '../index';
 import NewWallet from '../screens/newWallet';
 import ImportFunds from '../screens/importFunds';
 import ExchangeAuth from '../screens/exchangeAuth';
+import Login from '../screens/login';
 
 const HomeStack = StackNavigator({
   Home: {

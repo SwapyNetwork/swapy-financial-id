@@ -31,6 +31,11 @@ export default class Index extends React.Component {
           />
         </TouchableOpacity>
         <Button
+          onPress={() => this.props.navigation.navigate('Login')}
+          title="Login"
+          accessibilityLabel="Login"
+        />
+        <Button
           onPress={() => this.props.navigation.navigate('ImportFunds')}
           title="Import Funds"
           accessibilityLabel="Import funds from another Ethereum wallet"
