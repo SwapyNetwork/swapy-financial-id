@@ -14,6 +14,12 @@ const HomeStack = StackNavigator({
       title: 'Home',
     }),
   },
+  Login: {
+    screen: Login,
+    navigationOptions: () => ({
+      title: 'Login',
+    }),
+  },
   ImportFunds: {
     screen: ImportFunds,
     navigationOptions: () => ({
