@@ -21,7 +21,7 @@ export default class SignUp extends React.Component {
   }
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         {fields.map(field => (
           <TextInput
             style={styles.input}
@@ -44,6 +44,9 @@ export default class SignUp extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 30,
+  },
   input: {
     marginVertical: 10,
     marginHorizontal: 20,
