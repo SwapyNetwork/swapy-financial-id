@@ -16,9 +16,9 @@ export default class Index extends React.Component {
   }
 
   onPress = async () => {
-    const block = await this.web3.instance.eth.getBlock('latest');
-    const mnemonic = await this.wallet.generateMnemonic();
-    alert(block.hash, mnemonic);
+    // const block = await this.web3.instance.eth.getBlock('latest');
+    const mnemonic = await Wallet.generateMnemonic();
+    alert(JSON.stringify(mnemonic));
   }
 
   web3: Web3;
@@ -33,11 +33,13 @@ export default class Index extends React.Component {
           />
         </TouchableOpacity>
         <Button
+          style={styles.btn}
           onPress={() => this.props.navigation.navigate('ImportFunds')}
           title="Import Funds"
           accessibilityLabel="Import funds from another Ethereum wallet"
         />
         <Button
+          style={styles.btn}
           onPress={() => this.props.navigation.navigate('NewWallet')}
           title="Create Wallet"
           accessibilityLabel="Create new Ethereum Wallet"
@@ -53,5 +55,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  btn: {
+    marginTop: '10px',
   },
 });
