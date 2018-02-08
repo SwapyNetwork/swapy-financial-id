@@ -31,9 +31,9 @@ export default class Index extends React.Component {
           />
         </TouchableOpacity>
         <Button
-          onPress={() => this.props.navigation.navigate('Login')}
-          title="Login"
-          accessibilityLabel="Login"
+          onPress={() => this.props.navigation.navigate('SignUp')}
+          title="Sign Up"
+          accessibilityLabel="Sign Up"
         />
         <Button
           onPress={() => this.props.navigation.navigate('ImportFunds')}

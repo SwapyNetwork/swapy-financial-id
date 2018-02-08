@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput, ScrollView, StyleSheet } from 'react-native';
+import Button from '../components/Button/button';
 
 const fields = [
   { placeholder: 'Full name', stateKey: 'name' },
@@ -7,7 +8,7 @@ const fields = [
   { placeholder: 'Mobile phone', stateKey: 'mobilePhone', keyboardType: 'phone-pad' },
 ];
 
-export default class Login extends React.Component {
+export default class SignUp extends React.Component {
   constructor() {
     super();
     this.state = {};
@@ -26,13 +27,17 @@ export default class Login extends React.Component {
             style={styles.input}
             key={field.stateKey}
             value={this.state[field.stateKey]}
-            onChangeText={(text) => this.onInputChange(field.stateKey, text)}
+            onChangeText={text => this.onInputChange(field.stateKey, text)}
             placeholder={field.placeholder}
             keyboardType={field.keyboardType}
             autoCapitalize={field.keyboardType === 'email-address' ? 'none' : 'words'}
             autoCorrect={false}
           />
         ))}
+        <Button
+          label="Sign Up"
+          onPress={() => alert('Sign up')}
+        />
       </ScrollView>
     );
   }
