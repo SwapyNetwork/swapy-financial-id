@@ -31,24 +31,9 @@ export default class Index extends React.Component {
           />
         </TouchableOpacity>
         <Button
-          onPress={() => this.props.navigation.navigate('SignUp')}
+          onPress={() => this.props.navigation.navigate('TermsOfUse')}
           title="Sign Up"
           accessibilityLabel="Sign Up"
-        />
-        <Button
-          onPress={() => this.props.navigation.navigate('ImportFunds')}
-          title="Import Funds"
-          accessibilityLabel="Import funds from another Ethereum wallet"
-        />
-        <Button
-          onPress={() => this.props.navigation.navigate('NewWallet')}
-          title="Create Wallet"
-          accessibilityLabel="Create new Ethereum Wallet"
-        />
-        <Button
-          onPress={() => this.props.navigation.navigate('ExchangeAuth')}
-          title="Swapy Exchange Auth"
-          accessibilityLabel="Swapy Exchange Authentication via QRCode"
         />
       </View>
     );
