@@ -16,7 +16,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    marginVertical: 50,
+    marginVertical: 30,
     marginHorizontal: 20,
     padding: 10,
     borderRadius: 20,

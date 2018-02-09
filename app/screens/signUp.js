@@ -1,11 +1,13 @@
 import React from 'react';
-import { TextInput, ScrollView, StyleSheet } from 'react-native';
+import { TextInput, ScrollView, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import Button from '../components/Button/button';
 
 const fields = [
   { placeholder: 'Full name', stateKey: 'name' },
   { placeholder: 'Email', stateKey: 'email', keyboardType: 'email-address' },
   { placeholder: 'Mobile phone', stateKey: 'mobilePhone', keyboardType: 'phone-pad' },
+  { placeholder: 'Username', stateKey: 'userName' },
+  { placeholder: 'Password', stateKey: 'password', secureTextEntry: true },
 ];
 
 export default class SignUp extends React.Component {
@@ -21,7 +23,7 @@ export default class SignUp extends React.Component {
   }
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <KeyboardAvoidingView behavior="position" style={styles.container}>
         {fields.map(field => (
           <TextInput
             style={styles.input}
@@ -32,24 +34,25 @@ export default class SignUp extends React.Component {
             keyboardType={field.keyboardType}
             autoCapitalize={field.keyboardType === 'email-address' ? 'none' : 'words'}
             autoCorrect={false}
+            secureTextEntry={field.secureTextEntry}
           />
         ))}
         <Button
           label="Sign Up"
           onPress={() => alert(JSON.stringify(this.state))}
         />
-      </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: 10,
   },
   input: {
     marginVertical: 10,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     padding: 10,
     borderRadius: 20,
     backgroundColor: 'white',
