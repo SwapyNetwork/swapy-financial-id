@@ -36,7 +36,7 @@ export default class SignUp extends React.Component {
         ))}
         <Button
           label="Sign Up"
-          onPress={() => alert('Sign up')}
+          onPress={() => alert(JSON.stringify(this.state))}
         />
       </ScrollView>
     );
