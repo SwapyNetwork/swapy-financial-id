@@ -66,6 +66,7 @@ export default class SignUp extends React.Component {
     const userData = this.flattenIPFSTree(ipfsResponse);
 
     return {
+      profileId: userData.profile_id,
       name: userData.profile_name,
       email: userData.profile_email,
       phone: userData.profile_phone,
@@ -77,25 +78,15 @@ export default class SignUp extends React.Component {
     // @todo validate fields, mostly important: email and password confirmation
     this.setState({ ...this.state, isWaitingEthereum: true });
     const privateKey = await WalletProvider.instance.getPrivateKeyString();
-    console.log(privateKey);
 
     const profileHash = await IdentityProvider.instance.createIpfsProfile(this.factoryIPFSTree(this.state), privateKey);
     const tree = await IdentityProvider.instance.getTreeData(profileHash, true, privateKey);
-    
-    console.log(tree)
-    
-    // await IdentityProvider
-    //   .instance
-    //   .createPersonalIdentity(
-    //     this.state.username,
-    //     this.factoryIPFSTree(this.state),
-    //     privateKey,
-    //   );
 
-    // const address = await IdentityProvider.instance.getIdentityById(this.state.username);
-    // const userData = this.factoryUserData(await IdentityProvider.instance.getProfileData(address, true, privateKey));
     this.setState({ ...this.state, isWaitingEthereum: false });
-    this.props.navigation.navigate('Profile', tree);
+    this.props.navigation.navigate('Profile', {
+      profileHash,
+      ...this.factoryUserData(tree),
+    });
   };
 
   render() {
