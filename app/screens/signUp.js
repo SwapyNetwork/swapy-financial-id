@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultStyles from '../config/styles';
 import { TextInput, StyleSheet, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
-import Button from '../components/button';
+import { Button, Balances } from '../components';
 import IdentityProvider from '../lib/identity';
 import WalletProvider from '../lib/wallet';
 
@@ -14,6 +14,8 @@ const fields = [
 ];
 
 export default class SignUp extends React.Component {
+  static navigationOptions = { headerRight: (<Balances />) };
+
   constructor() {
     super();
     this.state = {
@@ -79,13 +81,21 @@ export default class SignUp extends React.Component {
     this.setState({ ...this.state, isWaitingEthereum: true });
     const privateKey = await WalletProvider.instance.getPrivateKeyString();
 
-    const profileHash = await IdentityProvider.instance.createIpfsProfile(this.factoryIPFSTree(this.state), privateKey);
+    const profileHash = await IdentityProvider
+      .instance
+      .createIpfsProfile(this.factoryIPFSTree(this.state), privateKey);
+
     const tree = await IdentityProvider.instance.getTreeData(profileHash, true, privateKey);
+    const userData = this.factoryUserData(tree);
+
+    IdentityProvider.instance.cachedIdentity.address = await IdentityProvider
+      .instance
+      .getIdentityById(userData.profileId);
 
     this.setState({ ...this.state, isWaitingEthereum: false });
     this.props.navigation.navigate('Profile', {
       profileHash,
-      ...this.factoryUserData(tree),
+      ...userData,
     });
   };
 

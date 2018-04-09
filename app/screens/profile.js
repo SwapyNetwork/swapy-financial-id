@@ -1,40 +1,49 @@
 import React from 'react';
-import { Button, ProfileCard } from '../components';
+import { Button, ProfileCard, Balances } from '../components';
 import { Alert, StyleSheet, View } from 'react-native';
 
 import IdentityProvider from '../lib/identity';
-import WalletProvider from '../lib/wallet';
+// import WalletProvider from '../lib/wallet';
 
-const handlePublishToBlockchain = async (profileId, profileHash) => {
-  let transaction = await IdentityProvider.instance.createPersonalIdentity(profileId, profileHash);
-  console.log(transaction);
-};
+export default class Profile extends React.Component {
+  static navigationOptions = { headerRight: (<Balances />) };
 
-const Profile = ({ navigation }) => (
-  <View style={styles.view}>
-    <ProfileCard {...navigation.state.params} />
-    <Button
-      label="Publish to Blockchain"
-      onPress={() => handlePublishToBlockchain(navigation.state.params.profileId, navigation.state.params.profileHash)}
-    />
-    <Button
-      label="Sell Data"
-      onPress={() => Alert.alert(
-        'Feature not ready!',
-        'Sorry. We\'re still working on this feature!',
-        [
-          { text: 'OK', onPress: () => {} },
-        ],
-        { cancelable: false },
-      )}
-    />
-  </View>
-);
+  async handlePublishToBlockchain(profileId, profileHash) {
+    let transaction = await IdentityProvider.instance.createPersonalIdentity(profileId, profileHash);
+    console.log(transaction);
+  }
+
+  render() {
+    return (
+      <View style={styles.view}>
+        <ProfileCard {...this.props.navigation.state.params} />
+        <Button
+          label="Publish to Blockchain"
+          onPress={
+            () => this.handlePublishToBlockchain(
+              this.props.navigation.state.params.profileId,
+              this.props.navigation.state.params.profileHash,
+            )
+          }
+        />
+        <Button
+          label="Sell Data"
+          onPress={() => Alert.alert(
+            'Feature not ready!',
+            'Sorry. We\'re still working on this feature!',
+            [
+              { text: 'OK', onPress: () => {} },
+            ],
+            { cancelable: false },
+          )}
+        />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   view: {
     flex: 1,
   },
 });
-
-export default Profile;
