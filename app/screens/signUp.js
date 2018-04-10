@@ -1,6 +1,6 @@
 import React from 'react';
+import { TextInput, StyleSheet, KeyboardAvoidingView, ActivityIndicator, Alert } from 'react-native';
 import defaultStyles from '../config/styles';
-import { TextInput, StyleSheet, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import { Button, Balances } from '../components';
 import IdentityProvider from '../lib/identity';
 import WalletProvider from '../lib/wallet';
@@ -78,25 +78,37 @@ export default class SignUp extends React.Component {
 
   validateFields = async () => {
     // @todo validate fields, mostly important: email and password confirmation
-    this.setState({ ...this.state, isWaitingEthereum: true });
-    const privateKey = await WalletProvider.instance.getPrivateKeyString();
+    try {
+      this.setState({ ...this.state, isWaitingEthereum: true });
+      const privateKey = await WalletProvider.instance.getPrivateKeyString();
 
-    const profileHash = await IdentityProvider
-      .instance
-      .createIpfsProfile(this.factoryIPFSTree(this.state), privateKey);
+      const profileHash = await IdentityProvider
+        .instance
+        .createIpfsProfile(this.factoryIPFSTree(this.state), privateKey);
 
-    const tree = await IdentityProvider.instance.getTreeData(profileHash, true, privateKey);
-    const userData = this.factoryUserData(tree);
+      const tree = await IdentityProvider.instance.getTreeData(profileHash, true, privateKey);
+      const userData = this.factoryUserData(tree);
 
-    IdentityProvider.instance.cachedIdentity.address = await IdentityProvider
-      .instance
-      .getIdentityById(userData.profileId);
+      this.setState({ ...this.state, isWaitingEthereum: false });
+      this.props.navigation.navigate('Profile', {
+        profileHash,
+        ...userData,
+      });
+    } catch (err) {
+      this.setState({
+        ...this.state,
+        isWaitingEthereum: false,
+      });
 
-    this.setState({ ...this.state, isWaitingEthereum: false });
-    this.props.navigation.navigate('Profile', {
-      profileHash,
-      ...userData,
-    });
+      Alert.alert(
+        'Error!',
+        `Sorry. The IPFS request failed. Please try again. \n\nError message:\n${err}`,
+        [
+          { text: 'OK', onPress: () => {} },
+        ],
+        { cancelable: false },
+      );
+    }
   };
 
   render() {

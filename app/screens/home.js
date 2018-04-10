@@ -20,7 +20,7 @@ export default class Home extends React.Component {
           style={{ width: 150, height: 150 }}
         />
         <Button
-          onPress={() => this.props.navigation.navigate('SeedWords')}
+          onPress={() => this.props.navigation.navigate('TermsOfUse')}
           label="Create account"
           accessibilityLabel="Create account"
         />

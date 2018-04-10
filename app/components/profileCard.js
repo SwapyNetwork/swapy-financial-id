@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import Icons from 'react-native-vector-icons/FontAwesome';
+import FeatherIcons from 'react-native-vector-icons/Feather';
+import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 import mainStyles from '../config/styles';
 
 type Props = {
@@ -14,23 +15,23 @@ type Props = {
 
 const ProfileCard = ({ name, email, phone, yearlyIncome }: Props) => (
   <View style={styles.card} >
-    <Icons name="user-circle-o" style={styles.avatar} size={130} color={mainStyles.colors.accent} />
+    <FontAwesomeIcons name="user-circle-o" style={styles.avatar} size={130} color={mainStyles.colors.accent} />
     <View style={styles.properties}>
       <View style={styles.property}>
-        <Icons style={styles.propertyIcon} name="user-o" size={32} color={mainStyles.colors.accent} />
+        <FeatherIcons style={styles.propertyIcon} name="user" size={32} color={mainStyles.colors.accent} />
         <Text style={styles.propertyText}>{name}</Text>
       </View>
       <View style={styles.property}>
-        <Icons style={styles.propertyIcon} name="envelope-o" size={32} color={mainStyles.colors.accent} />
+        <FeatherIcons style={styles.propertyIcon} name="mail" size={32} color={mainStyles.colors.accent} />
         <Text style={styles.propertyText}>{email}</Text>
       </View>
       <View style={styles.property}>
-        <Icons style={styles.propertyIcon} name="phone" size={32} color={mainStyles.colors.accent} />
+        <FeatherIcons style={styles.propertyIcon} name="phone" size={32} color={mainStyles.colors.accent} />
         <Text style={styles.propertyText}>{phone}</Text>
       </View>
       <View style={styles.property}>
-        <Icons style={styles.propertyIcon} name="money" size={32} color={mainStyles.colors.accent} />
-        <Text style={styles.propertyText}>{yearlyIncome}</Text>
+        <FeatherIcons style={styles.propertyIcon} name="star" size={32} color={mainStyles.colors.accent} />
+        <Text style={styles.propertyText}>{'US$ '}{yearlyIncome}</Text>
       </View>
     </View>
   </View>
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   },
   avatar: {
     padding: 10,
-    marginTop: 50,
+    marginTop: 10,
   },
   properties: {
     padding: 10,

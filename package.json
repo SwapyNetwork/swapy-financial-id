@@ -7,6 +7,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "npm run flow && npm run lint && node node_modules/jest/bin/jest.js",
+    "apk": "cd android && ./gradlew assembleRelease",
     "lint": "eslint .",
     "flow": "flow",
     "nodeify": "rn-nodeify --hack --install --yarn",

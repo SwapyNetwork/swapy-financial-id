@@ -16,15 +16,15 @@ const generateMnemonic = async () => {
 class SeedWords extends Component {
   constructor(props) {
     super(props);
-    this.state = { mnemonic: '' };
+    this.state = { mnemonic: '', walletAddress: '' };
     this.setSeedWords();
   }
 
   async setSeedWords() {
     const mnemonic = await generateMnemonic();
     // Dsiable wallet creation for dev purposes @todo remind to uncoment this.
-    // WalletProvider.newWallet(mnemonic);
-    this.setState({ mnemonic });
+    WalletProvider.newWallet(mnemonic);
+    this.setState({ mnemonic, walletAddress: WalletProvider.instance.getAddressString() });
   }
 
   setAccount = async () => {
@@ -43,6 +43,12 @@ class SeedWords extends Component {
           {'We\'ve generated your account... These 12 words are the only way to restore your Financial Identity. Save them somewhere safe and secret and don\'t ever lose it!'}
         </Text>
         <TextBox bold style={{ fontWeight: 'bold' }}>{ this.state.mnemonic }</TextBox>
+        <Text style={styles.text}>
+          {'This is your wallet address:'}
+        </Text>
+        <Text style={styles.boldText}>
+          {this.state.walletAddress}
+        </Text>
         <Button
           label="I've copied it somewhere safe"
           onPress={() => this.setAccount()}
@@ -60,5 +66,12 @@ const styles = StyleSheet.create({
     paddingLeft: '5%',
     paddingRight: '5%',
     fontSize: 16,
+  },
+  boldText: {
+    paddingTop: '5%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

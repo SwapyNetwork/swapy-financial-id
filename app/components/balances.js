@@ -1,6 +1,7 @@
 import React from 'react';
-import Styles from '../config/styles';
 import { View, StyleSheet, Text } from 'react-native';
+import { setInterval } from 'core-js';
+import Styles from '../config/styles';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
 
@@ -12,39 +13,50 @@ const getSwapyBalance = async identityAddress =>
 const getEthBalance = async walletAddress =>
   IdentityProvider.instance.getWeb3().eth.getBalance(walletAddress);
 
-const renderEthBalance = async () => {
-  if (WalletProvider.instance.getAddressString()) {
-    const ethBalance = IdentityProvider
-      .instance
-      .getWeb3()
-      .utils
-      .fromWei(await getEthBalance(WalletProvider.instance.getAddressString()));
-
-    return Number(ethBalance).toFixed(3);
+export default class Balances extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      ethBalance: undefined,
+      swapyBalance: undefined,
+    };
+    setInterval(() => {
+      this.loadBalances();
+    }, 10000);
   }
-  return undefined;
-};
 
-const renderSwapyBalance = async () => {
-  if (IdentityProvider.instance.cachedIdentity.address) {
+  async loadBalances() {
+    const walletAddress = WalletProvider.instance.getAddressString();
+    let ethBalance = walletAddress ? await getEthBalance(WalletProvider.instance.getAddressString()) : undefined;
+    ethBalance = ethBalance ?
+      Number(IdentityProvider.instance.getWeb3().utils.fromWei(ethBalance)).toFixed(3) :
+      ethBalance;
+
+    const identityAddress = IdentityProvider.cachedIdentity ? IdentityProvider.cachedIdentity.address : undefined;
+    let swapyBalance = identityAddress ? await getSwapyBalance(identityAddress) : undefined;
+    swapyBalance = swapyBalance ?
+      Number(IdentityProvider.instance.getWeb3().utils.fromWei(swapyBalance)).toFixed(3) :
+      swapyBalance;
+
+    this.setState({
+      ethBalance,
+      swapyBalance,
+    });
+  }
+
+  render() {
     return (
-      <Text style={styles.text}>
-        {`${getSwapyBalance(IdentityProvider.instance.cachedIdentity.address)} SWAPY`}
-      </Text>
+      <View stles={styles.balances}>
+        <Text style={styles.text}>
+          {this.state.ethBalance ? `${this.state.ethBalance} ETH` : undefined}
+        </Text>
+        <Text style={styles.text}>
+          {this.state.swapyBalance ? `${this.state.swapyBalance} SWAPY` : undefined}
+        </Text>
+      </View>
     );
   }
-  return undefined;
-};
-
-const Balances = () => (
-  <View stles={styles.balances}>
-    <Text style={styles.text}>
-      {`${renderEthBalance()} ETH`}
-    </Text>
-  </View>
-);
-
-export default Balances;
+}
 
 const styles = StyleSheet.create({
   balances: {
