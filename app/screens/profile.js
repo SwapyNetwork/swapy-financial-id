@@ -7,7 +7,7 @@ import IdentityProvider from '../lib/identity';
 // import WalletProvider from '../lib/wallet';
 
 export default class Profile extends React.Component {
-  static navigationOptions = { headerRight: (<Balances />) };
+  static navigationOptions = { headerRight: (<Balances />), headerLeft: null };
 
   constructor() {
     super();
@@ -86,7 +86,7 @@ export default class Profile extends React.Component {
           />
         }
         <Button
-          label="Sell Data"
+          label="Share your ID"
           onPress={() => Alert.alert(
             'Feature not ready!',
             'Sorry. We\'re still working on this feature!',

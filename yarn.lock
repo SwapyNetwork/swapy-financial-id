@@ -461,9 +461,9 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
-"@swapynetwork/swapy-identity-api@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@swapynetwork/swapy-identity-api/-/swapy-identity-api-0.0.15.tgz#1e2b63c967c76eb30d361207b9b372c07cd735d4"
+"@swapynetwork/swapy-identity-api@0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@swapynetwork/swapy-identity-api/-/swapy-identity-api-0.0.16.tgz#0d97ab3e4bfc577663374e5ba2cda361a2a0779c"
   dependencies:
     babel-runtime "^6.26.0"
     crypto-browserify "^3.12.0"

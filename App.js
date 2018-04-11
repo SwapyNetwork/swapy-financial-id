@@ -6,7 +6,12 @@ import React from 'react';
 import HomeStack from './app/config/router';
 import WalletProvider from './app/lib/wallet';
 
-WalletProvider.initWalletFromStorage();
+try {
+  WalletProvider.initWalletFromStorage();
+} catch (err) {
+  console.log(err);
+}
+
 const App = () => <HomeStack />;
 
 export default App;

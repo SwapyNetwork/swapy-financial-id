@@ -23,7 +23,7 @@ class SeedWords extends Component {
   async setSeedWords() {
     const mnemonic = await generateMnemonic();
     // Dsiable wallet creation for dev purposes @todo remind to uncoment this.
-    WalletProvider.newWallet(mnemonic);
+    await WalletProvider.newWallet(mnemonic);
     this.setState({ mnemonic, walletAddress: WalletProvider.instance.getAddressString() });
   }
 

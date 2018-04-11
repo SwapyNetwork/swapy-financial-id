@@ -27,7 +27,7 @@ if (typeof localStorage !== 'undefined') {
 // If using the crypto shim, uncomment the following line to ensure
 // crypto is loaded first, so it can populate global.crypto
 require('crypto');
-const webcrypto = {}//require('isomorphic-webcrypto');
+const webcrypto = {}; // require('isomorphic-webcrypto');
 
 webcrypto.getRandomValues = global.crypto.getRandomValues;
 global.crypto = webcrypto;
@@ -35,12 +35,11 @@ global.crypto = webcrypto;
 if (window) {
   window = global;
 }
-console.log(window)
 require('react-native-browser-polyfill');
 
 // Needed so that 'stream-http' chooses the right default protocol.
 global.location = {
-  protocol: 'file:',
+  protocol: 'https:',
 };
 
-global.navigator.userAgent = 'react-native';
+global.navigator.userAgent = 'runscope/0.1';

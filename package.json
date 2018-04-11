@@ -10,7 +10,7 @@
     "apk": "cd android && ./gradlew assembleRelease",
     "lint": "eslint .",
     "flow": "flow",
-    "nodeify": "rn-nodeify --hack --install --yarn",
+    "nodeify": "rn-nodeify --hack --install \"crypto, buffer, stream\" --yarn",
     "fix-start": "echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
   },
   "jest": {
@@ -32,7 +32,7 @@
     "rn-nodeify": "^10.0.0"
   },
   "dependencies": {
-    "@swapynetwork/swapy-identity-api": "^0.0.15",
+    "@swapynetwork/swapy-identity-api": "0.0.16",
     "@tradle/react-native-http": "^2.0.0",
     "asyncstorage-down": "^4.0.1",
     "bip39": "^2.5.0",

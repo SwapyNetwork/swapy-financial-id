@@ -14,7 +14,7 @@ const fields = [
 ];
 
 export default class SignUp extends React.Component {
-  static navigationOptions = { headerRight: (<Balances />) };
+  static navigationOptions = { headerRight: (<Balances />), headerLeft: null };
 
   constructor() {
     super();
@@ -80,15 +80,21 @@ export default class SignUp extends React.Component {
     // @todo validate fields, mostly important: email and password confirmation
     try {
       this.setState({ ...this.state, isWaitingEthereum: true });
+      // console.log('FETCH =>')
+      // fetch('https://ipfs.infura.io:5001/api/v0/get?arg=%2Fipfs%2FQmS77Xc6tvW54srYXNqvLjw9Zajz2PfZq1t1tdmQqAFyEF&stream-channels=true', {method: 'POST'})
+      //   .then(function(response) {
+      //     console.log(response)
+      //     return response.text()
+      //   }).then(function(body) {
+      //     console.log(body)
+      //   })
       const privateKey = await WalletProvider.instance.getPrivateKeyString();
-
       const profileHash = await IdentityProvider
         .instance
         .createIpfsProfile(this.factoryIPFSTree(this.state), privateKey);
 
       const tree = await IdentityProvider.instance.getTreeData(profileHash, true, privateKey);
       const userData = this.factoryUserData(tree);
-
       this.setState({ ...this.state, isWaitingEthereum: false });
       this.props.navigation.navigate('Profile', {
         profileHash,
