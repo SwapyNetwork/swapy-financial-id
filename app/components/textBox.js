@@ -1,8 +1,15 @@
+/* @flow */
+
 import React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import mainStyles from '../config/styles';
 
-const TextBox = props => (
+type Props = {
+  bold: boolean,
+  children: [],
+};
+
+const TextBox = (props: Props) => (
   <ScrollView style={styles.container} >
     <Text style={props.bold ? styles.textBold : styles.text}>
       {props.children}

@@ -10,6 +10,12 @@
     "no-use-before-define": ["error", { "variables": false, "classes": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prop-types": [0],
-    "max-len": ["error", { "code": 180 }]
+    "max-len": ["error", { "code": 180 }],
+    "object-curly-newline": ["error", {
+      "ObjectExpression": "never",
+      "ObjectPattern": "never",
+      "ImportDeclaration": "never",
+      "ExportDeclaration": "never"
+    }]
   }
 }

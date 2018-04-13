@@ -4,13 +4,7 @@ import './shim.js'
 
 import React from 'react';
 import HomeStack from './app/config/router';
-import WalletProvider from './app/lib/wallet';
-
-try {
-  WalletProvider.initWalletFromStorage();
-} catch (err) {
-  console.log(err);
-}
+import IdentityProvider from './app/lib/identity';
 
 const App = () => <HomeStack />;
 

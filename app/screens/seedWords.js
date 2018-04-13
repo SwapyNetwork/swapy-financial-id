@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import bip39 from 'react-native-bip39';
 import { Text, StyleSheet } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { Button, Container, TextBox } from '../components';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
+
 
 const generateMnemonic = async () => {
   try {
@@ -20,6 +22,16 @@ class SeedWords extends Component {
     this.setSeedWords();
   }
 
+  resetNavigation(targetRoute) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: targetRoute }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+
   async setSeedWords() {
     const mnemonic = await generateMnemonic();
     // Dsiable wallet creation for dev purposes @todo remind to uncoment this.
@@ -33,7 +45,8 @@ class SeedWords extends Component {
     IdentityProvider
       .instance
       .addAccountFromPrivateKey(`0x${privateKey}`);
-    this.props.navigation.navigate('SignUp');
+
+    this.resetNavigation('SignUp');
   };
 
   render() {

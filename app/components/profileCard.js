@@ -31,13 +31,21 @@ const ProfileCard = ({ name, email, phone, yearlyIncome }: Props) => (
       </View>
       <View style={styles.property}>
         <FeatherIcons style={styles.propertyIcon} name="star" size={32} color={mainStyles.colors.accent} />
-        <Text style={styles.propertyText}>{'US$ '}{yearlyIncome}</Text>
+        <Text style={styles.propertyText}>{yearlyIncome ? 'US$ ' : ''}{yearlyIncome}</Text>
       </View>
     </View>
   </View>
 );
 
+ProfileCard.defaultProps = {
+  name: '',
+  email: '',
+  phone: '',
+  yearlyIncome: 0,
+};
+
 export default ProfileCard;
+
 const styles = StyleSheet.create({
   card: {
     flex: 1,

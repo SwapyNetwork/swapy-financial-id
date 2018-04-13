@@ -1,25 +1,33 @@
+/* @flow */
+
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { setInterval } from 'core-js';
+
 import Styles from '../config/styles';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
 
-const getSwapyBalance = async identityAddress =>
-  IdentityProvider
-    .instance
-    .getTokenBalance(identityAddress);
+const getSwapyBalance = async (identityAddress: string) =>
+  IdentityProvider.instance.getTokenBalance(identityAddress);
 
-const getEthBalance = async walletAddress =>
+const getEthBalance = async (walletAddress: string) =>
   IdentityProvider.instance.getWeb3().eth.getBalance(walletAddress);
 
-export default class Balances extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      ethBalance: undefined,
-      swapyBalance: undefined,
-    };
+type Props = {};
+type State = {
+  ethBalance: number,
+  swapyBalance: number,
+};
+
+export default class Balances extends React.Component<Props, State> {
+  state = {
+    ethBalance: 0,
+    swapyBalance: 0,
+  };
+
+  componentDidMount() {
+    this.loadBalances();
     setInterval(() => {
       this.loadBalances();
     }, 10000);

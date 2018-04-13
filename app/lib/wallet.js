@@ -1,3 +1,4 @@
+/* @flow */
 /* eslint-disable class-methods-use-this */
 
 import * as hdkey from 'ethereumjs-wallet/hdkey';
@@ -41,8 +42,9 @@ class WalletProvider {
       if (privateKey) {
         this.instance = await ethWallet
           .fromPrivateKey(Buffer.from(privateKey, 'hex'));
+        return true;
       } else {
-        throw new Error('Private key not found');
+        return false;
       }
     } catch (err) {
       throw new Error(err.message);

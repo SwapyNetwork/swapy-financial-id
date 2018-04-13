@@ -42,4 +42,4 @@ global.location = {
   protocol: 'https:',
 };
 
-global.navigator.userAgent = 'runscope/0.1';
+global.navigator.userAgent = 'react-native';

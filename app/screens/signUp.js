@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput, StyleSheet, KeyboardAvoidingView, ActivityIndicator, Alert } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import defaultStyles from '../config/styles';
 import { Button, Balances } from '../components';
 import IdentityProvider from '../lib/identity';
@@ -23,57 +24,20 @@ export default class SignUp extends React.Component {
     };
   }
 
+  resetNavigation(targetRoute) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: targetRoute }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+
   onInputChange = (stateKey, text) => {
     const field = {};
     field[stateKey] = text;
     this.setState(field);
-  };
-
-  factoryIPFSTree = ({ name, email, mobilePhone, username, yearlyIncome }) => {
-    return [{
-      parentLabel: 'root',
-      label: 'root_profile',
-      childrens: [{
-        label: 'profile_name',
-        data: name,
-      }, {
-        label: 'profile_email',
-        data: email,
-      }, {
-        label: 'profile_phone',
-        data: mobilePhone,
-      }, {
-        label: 'profile_id',
-        data: username,
-      }],
-    }, {
-      parentLabel: 'root',
-      label: 'root_financial',
-      childrens: [{
-        label: 'usd_yearly_income',
-        data: yearlyIncome,
-      }],
-    }];
-  };
-
-  flattenIPFSTree = (ipfsResponse, flatUserData = {}) => {
-    ipfsResponse.childrens.forEach((child) => {
-      if (child.childrens) this.flattenIPFSTree(child, flatUserData);
-      else flatUserData[child.label] = child.data; // eslint-disable-line
-    });
-    return flatUserData;
-  };
-
-  factoryUserData = (ipfsResponse) => {
-    const userData = this.flattenIPFSTree(ipfsResponse);
-
-    return {
-      profileId: userData.profile_id,
-      name: userData.profile_name,
-      email: userData.profile_email,
-      phone: userData.profile_phone,
-      yearlyIncome: userData.usd_yearly_income,
-    };
   };
 
   validateFields = async () => {
@@ -91,10 +55,13 @@ export default class SignUp extends React.Component {
       const privateKey = await WalletProvider.instance.getPrivateKeyString();
       const profileHash = await IdentityProvider
         .instance
-        .createIpfsProfile(this.factoryIPFSTree(this.state), privateKey);
+        .createIpfsProfile(IdentityProvider.factoryIPFSTree(this.state), privateKey);
 
       const tree = await IdentityProvider.instance.getTreeData(profileHash, true, privateKey);
-      const userData = this.factoryUserData(tree);
+      const userData = IdentityProvider.factoryUserData(tree);
+
+      IdentityProvider.persistIdentityId(JSON.stringify({ identityId: userData.profileId, identityHash: profileHash }));
+
       this.setState({ ...this.state, isWaitingEthereum: false });
       this.props.navigation.navigate('Profile', {
         profileHash,

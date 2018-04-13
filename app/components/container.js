@@ -1,7 +1,13 @@
+/* @flow */
+
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-const Container = props => (
+type Props = {
+  children: [],
+};
+
+const Container = (props: Props) => (
   <View style={styles.container} >
     {props.children}
   </View>
