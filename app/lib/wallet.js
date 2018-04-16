@@ -5,22 +5,32 @@ import * as hdkey from 'ethereumjs-wallet/hdkey';
 import * as ethWallet from 'ethereumjs-wallet';
 import Storage from 'react-native-sensitive-info';
 
-class WalletProvider {
-  instance;
+type EthereumJsWalletHdKey = {
+  getPrivateKey: () => string,
+  getAddressString: () => string,
+  getPrivateKeyString: () => string,
+};
 
-  async newWallet(mnemonic) {
+type EthereumJsWallet = {
+  fromPrivateKey: Promise<EthereumJsWalletHdKey>,
+};
+
+class WalletProvider {
+  instance: EthereumJsWalletHdKey;
+
+  async newWallet(mnemonic: string) {
     try {
       this.instance = await hdkey
         .fromMasterSeed(mnemonic)
         .getWallet();
 
-      await this.persistKey(await this.instance.getPrivateKey());
+      await this.persistKey(this.instance.getPrivateKey());
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  async persistKey(privateKey) {
+  async persistKey(privateKey: Buffer): Promise<any> {
     try {
       return await Storage.setItem('privateKey', privateKey.toString('hex'), {});
     } catch (err) {
@@ -28,7 +38,7 @@ class WalletProvider {
     }
   }
 
-  async retrieveKey() {
+  async retrieveKey(): Promise<string> {
     try {
       return await Storage.getItem('privateKey', {});
     } catch (err) {
@@ -36,7 +46,7 @@ class WalletProvider {
     }
   }
 
-  async initWalletFromStorage() {
+  async initWalletFromStorage(): Promise<boolean> {
     try {
       const privateKey = await this.retrieveKey();
       if (privateKey) {

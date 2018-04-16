@@ -4,15 +4,49 @@ import { Api } from '@swapynetwork/swapy-identity-api';
 import { INFURA_KEY, NETWORK } from 'react-native-dotenv'; //eslint-disable-line
 import Storage from 'react-native-sensitive-info';
 
-class IdentityProvider {
-  instance;
-  cachedIdentity = {};
+type SwapyIdentityApi = {
+  getTokenBalance: (string) => Promise<string>,
+  getWeb3: () => Web3,
+};
 
-  constructor(httpProvider, network) {
+type Web3 = {
+  eth: {
+    getBalance: (string) => Promise<string>,
+  },
+  utils: {
+    fromWei: (string) => string,
+  },
+};
+
+type CachedIdentity = {
+  address: string,
+};
+
+type Identity = {
+  name?: string,
+  email?: string,
+  mobilePhone?: number,
+  username?: string,
+  yearlyIncome?: string,
+};
+
+type IpfsIdentity = {
+  profile_id?: string,
+  profile_name?: string,
+  profile_email?: string,
+  profile_phone?: number,
+  usd_yearly_income?: string,
+};
+
+class IdentityProvider {
+  instance: SwapyIdentityApi;
+  cachedIdentity: CachedIdentity = { address: '' };
+
+  constructor(httpProvider: string, network: string) {
     this.instance = new Api(httpProvider, null, network);
   }
 
-  factoryIPFSTree({ name, email, mobilePhone, username, yearlyIncome }) {
+  factoryIPFSTree({ name, email, mobilePhone, username, yearlyIncome }: Identity) {
     return [{
       parentLabel: 'root',
       label: 'root_profile',
@@ -39,7 +73,7 @@ class IdentityProvider {
     }];
   }
 
-  flattenIPFSTree(ipfsResponse, flatUserData = {}) {
+  flattenIPFSTree(ipfsResponse: { childrens: [] }, flatUserData: IpfsIdentity = {}): IpfsIdentity {
     ipfsResponse.childrens.forEach((child) => {
       if (child.childrens) this.flattenIPFSTree(child, flatUserData);
       else flatUserData[child.label] = child.data; // eslint-disable-line
@@ -47,8 +81,8 @@ class IdentityProvider {
     return flatUserData;
   }
 
-  factoryUserData(ipfsResponse) {
-    const userData = this.flattenIPFSTree(ipfsResponse);
+  factoryUserData(ipfsResponse: { childrens: [] }): Identity {
+    const userData: IpfsIdentity = this.flattenIPFSTree(ipfsResponse);
 
     return {
       profileId: userData.profile_id,
@@ -59,7 +93,7 @@ class IdentityProvider {
     };
   }
 
-  async persistIdentityId(identityId) {
+  async persistIdentityId(identityId: string) {
     try {
       return await Storage.setItem('identityId', identityId, {});
     } catch (err) {
@@ -67,7 +101,7 @@ class IdentityProvider {
     }
   }
 
-  async retrieveIdentityId() {
+  async retrieveIdentityId(): Promise<string> {
     try {
       return await Storage.getItem('identityId', {});
     } catch (err) {

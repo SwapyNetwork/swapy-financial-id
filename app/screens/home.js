@@ -36,7 +36,7 @@ export default class Home extends React.Component {
   }
 
   async navigateToProfile() {
-    const privateKey = await WalletProvider.instance.getPrivateKeyString();
+    const privateKey = WalletProvider.instance.getPrivateKeyString();
     const tree = await IdentityProvider.instance.getTreeData(this.state.identityHash, true, privateKey);
     const userData = IdentityProvider.factoryUserData(tree);
 

@@ -1,6 +1,6 @@
 /* @flow */
 
-import React from 'react';
+import * as React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { setInterval } from 'core-js';
 
@@ -8,24 +8,19 @@ import Styles from '../config/styles';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
 
-const getSwapyBalance = async (identityAddress: string) =>
-  IdentityProvider.instance.getTokenBalance(identityAddress);
-
-const getEthBalance = async (walletAddress: string) =>
-  IdentityProvider.instance.getWeb3().eth.getBalance(walletAddress);
 
 type Props = {};
 type State = {
-  ethBalance: number,
-  swapyBalance: number,
+  ethBalance: string | void,
+  swapyBalance: string | void,
 };
 
 export default class Balances extends React.Component<Props, State> {
   state = {
-    ethBalance: 0,
-    swapyBalance: 0,
+    ethBalance: undefined,
+    swapyBalance: undefined,
   };
-
+  
   componentDidMount() {
     this.loadBalances();
     setInterval(() => {
@@ -33,15 +28,19 @@ export default class Balances extends React.Component<Props, State> {
     }, 10000);
   }
 
+  getSwapyBalance = async (identityAddress: string): Promise<any> => IdentityProvider.instance.getTokenBalance(identityAddress);
+  
+  getEthBalance = async (walletAddress: string) => IdentityProvider.instance.getWeb3().eth.getBalance(walletAddress);
+
   async loadBalances() {
     const walletAddress = WalletProvider.instance.getAddressString();
-    let ethBalance = walletAddress ? await getEthBalance(WalletProvider.instance.getAddressString()) : undefined;
+    let ethBalance: string | void = walletAddress ? await this.getEthBalance(WalletProvider.instance.getAddressString()) : undefined;
     ethBalance = ethBalance ?
       Number(IdentityProvider.instance.getWeb3().utils.fromWei(ethBalance)).toFixed(3) :
       ethBalance;
 
     const identityAddress = IdentityProvider.cachedIdentity ? IdentityProvider.cachedIdentity.address : undefined;
-    let swapyBalance = identityAddress ? await getSwapyBalance(identityAddress) : undefined;
+    let swapyBalance: string | void = identityAddress ? await this.getSwapyBalance(identityAddress) : undefined;
     swapyBalance = swapyBalance ?
       Number(IdentityProvider.instance.getWeb3().utils.fromWei(swapyBalance)).toFixed(3) :
       swapyBalance;
