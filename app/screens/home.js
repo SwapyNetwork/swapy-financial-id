@@ -24,7 +24,7 @@ export default class Home extends React.Component {
       const identity = JSON.parse(await IdentityProvider.retrieveIdentityId());
 
       if(existsWallet && identity) {
-        this.setState({ alreadySignedUp: false, identityId: identity.identityId, identityHash: identity.identityHash });
+        this.setState({ alreadySignedUp: true, identityId: identity.identityId, identityHash: identity.identityHash });
       } else {
         this.setState({ ...this.state, alreadySignedUp: false });
       }

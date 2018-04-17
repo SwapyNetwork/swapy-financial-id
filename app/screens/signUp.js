@@ -24,11 +24,11 @@ export default class SignUp extends React.Component {
     };
   }
 
-  resetNavigation(targetRoute) {
+  resetNavigation(targetRoute, params) {
     const resetAction = NavigationActions.reset({
       index: 0,
       actions: [
-        NavigationActions.navigate({ routeName: targetRoute }),
+        NavigationActions.navigate({ routeName: targetRoute, params }),
       ],
     });
     this.props.navigation.dispatch(resetAction);
@@ -63,7 +63,7 @@ export default class SignUp extends React.Component {
       IdentityProvider.persistIdentityId(JSON.stringify({ identityId: userData.profileId, identityHash: profileHash }));
 
       this.setState({ ...this.state, isWaitingEthereum: false });
-      this.props.navigation.navigate('Profile', {
+      this.resetNavigation('Profile', {
         profileHash,
         ...userData,
       });
