@@ -1,16 +1,12 @@
-// @flow
+/* @flow */
 
 import { StackNavigator } from 'react-navigation';
 
 import Home from '../screens/home';
-import NewWallet from '../screens/newWallet';
-import ImportWallet from '../screens/importWallet';
-import ExchangeAuth from '../screens/exchangeAuth';
-import SignUp from '../screens/signUp';
-import Profile from '../screens/profile';
 import TermsOfUse from '../screens/termsOfUse';
 import SeedWords from '../screens/seedWords';
-import WalletOption from '../screens/walletOption';
+import SignUp from '../screens/signUp';
+import Profile from '../screens/profile';
 
 import styles from './styles';
 
@@ -43,31 +39,6 @@ const HomeStack = StackNavigator({
     screen: Profile,
     navigationOptions: () => ({
       title: 'Profile',
-    }),
-  },
-  WalletOption: {
-    screen: WalletOption,
-    navigationOptions: () => ({
-      title: 'Wallet Option',
-    }),
-  },
-  ImportWallet: {
-    screen: ImportWallet,
-    navigationOptions: () => ({
-      title: 'Import wallet',
-    }),
-  },
-  NewWallet: {
-    screen: NewWallet,
-    navigationOptions: () => ({
-      title: 'Create new wallet',
-    }),
-  },
-  ExchangeAuth: {
-    screen: ExchangeAuth,
-    navigationOptions: () => ({
-      title: 'Exchange Auth',
-      header: null,
     }),
   },
 }, {

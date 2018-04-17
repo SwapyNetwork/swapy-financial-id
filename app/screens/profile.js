@@ -1,28 +1,37 @@
+/* @flow */
+
 import React from 'react';
 import { Alert, StyleSheet, View, ActivityIndicator } from 'react-native';
+
 import { Button, ProfileCard, Balances } from '../components';
 import defaultStyles from '../config/styles';
-
 import IdentityProvider from '../lib/identity';
-// import WalletProvider from '../lib/wallet';
 
-export default class Profile extends React.Component {
+import type { NavigationScreenProp } from 'react-navigation/src/TypeDefinition';
+
+type Props = {
+  navigation: NavigationScreenProp,
+};
+
+type State = {
+  publishedToBlockchain: bool,
+  identityAddress: void | string,
+  isWaitingEthereum: bool,
+};
+
+export default class Profile extends React.Component<Props, State> {
   static navigationOptions = { headerRight: (<Balances />), headerLeft: null };
 
-  constructor() {
-    super();
-
-    this.state = {
-      publishedToBlockchain: false,
-      identityAddress: undefined,
-      isWaitingEthereum: false,
-    };
-  }
-
-  async handlePublishToBlockchain(profileId, profileHash) {
+  state = {
+    publishedToBlockchain: false,
+    identityAddress: undefined,
+    isWaitingEthereum: false,
+  };
+  
+  async handlePublishToBlockchain(profileId: string, profileHash: string) {
     this.setState({ ...this.state, isWaitingEthereum: true });
     try {
-      const transaction = await IdentityProvider.instance.createPersonalIdentity(profileId, profileHash);
+      const transaction: { status: string } = await IdentityProvider.instance.createPersonalIdentity(profileId, profileHash);
       if (IdentityProvider.instance.getWeb3().utils.hexToNumber(transaction.status) === 1) {
         IdentityProvider.cachedIdentity.address = await IdentityProvider
           .instance
@@ -79,7 +88,7 @@ export default class Profile extends React.Component {
             label="Publish to Blockchain"
             onPress={
               () => this.handlePublishToBlockchain(
-                this.props.navigation.state.params.profileId,
+                this.props.navigation.state.params.username,
                 this.props.navigation.state.params.profileHash,
               )
             }

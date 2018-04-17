@@ -7,6 +7,18 @@ import Storage from 'react-native-sensitive-info';
 type SwapyIdentityApi = {
   getTokenBalance: (string) => Promise<string>,
   getWeb3: () => Web3,
+  getTreeData: (ipfsHash: string, fetchData: boolean, privateKey: string) => { childrens: [] },
+  createPersonalIdentity: (
+    identityId: string,
+    profileHash: string,
+    opt?: {
+      from: null | string,
+      gas: null | string | number,
+      gasPrice: null | string | number,
+    }) => Promise<any>,
+  getIdentityById: (string) => Promise<string>,
+  addAccountFromPrivateKey: (string) => Promise<any>,
+  createIpfsProfile: (Array<{}>, string) => Promise<any>
 };
 
 type Web3 = {
@@ -15,6 +27,7 @@ type Web3 = {
   },
   utils: {
     fromWei: (string) => string,
+    hexToNumber: (Buffer | string) => number,
   },
 };
 
@@ -22,16 +35,16 @@ type CachedIdentity = {
   address: string,
 };
 
-type Identity = {
+export type Identity = {
   name?: string,
   email?: string,
   mobilePhone?: number,
-  username?: string,
+  username: string,
   yearlyIncome?: string,
 };
 
-type IpfsIdentity = {
-  profile_id?: string,
+export type IpfsIdentity = {
+  profile_id: string,
   profile_name?: string,
   profile_email?: string,
   profile_phone?: number,
@@ -85,7 +98,7 @@ class IdentityProvider {
     const userData: IpfsIdentity = this.flattenIPFSTree(ipfsResponse);
 
     return {
-      profileId: userData.profile_id,
+      username: userData.profile_id,
       name: userData.profile_name,
       email: userData.profile_email,
       phone: userData.profile_phone,
@@ -93,17 +106,17 @@ class IdentityProvider {
     };
   }
 
-  async persistIdentityId(identityId: string) {
+  async persistIdentity(identity: { id: string, hash: string }) {
     try {
-      return await Storage.setItem('identityId', identityId, {});
+      return await Storage.setItem('identity', JSON.stringify(identity), {});
     } catch (err) {
       throw new Error(err.message);
     }
   }
 
-  async retrieveIdentityId(): Promise<string> {
+  async retrieveIdentity(): Promise<{ id: string, hash: string }> {
     try {
-      return await Storage.getItem('identityId', {});
+      return JSON.parse(await Storage.getItem('identity', {}));
     } catch (err) {
       throw new Error(err.message);
     }

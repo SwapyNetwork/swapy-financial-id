@@ -1,12 +1,12 @@
 /* @flow */
 
-import React from 'react';
+import * as React from 'react';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import mainStyles from '../config/styles';
 
 type Props = {
   bold: boolean,
-  children: [],
+  children?: React.Node,
 };
 
 const TextBox = (props: Props) => (

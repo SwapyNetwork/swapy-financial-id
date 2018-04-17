@@ -1,5 +1,6 @@
 /* @flow */
 /* eslint-disable global-require */
+
 import React from 'react';
 import { Text, Image, StyleSheet, View, ActivityIndicator } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
@@ -9,22 +10,39 @@ import defaultStyles from '../config/styles';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
 
-export default class Home extends React.Component {
+import type { NavigationScreenProp } from 'react-navigation/src/TypeDefinition';
+import type { Identity } from '../lib/identity';
+
+type Props = {
+  navigation: NavigationScreenProp,
+};
+
+type State = {
+  alreadySignedUp: void | boolean,
+  identity: {
+    id: string,
+    hash: string,
+  },
+};
+
+export default class Home extends React.Component<Props, State> {
   static navigationOptions = { header: null };
 
   state = {
     alreadySignedUp: undefined,
-    identityId: '',
-    identityHash: '',
+    identity: {
+      id: '',
+      hash: '',
+    },
   };
 
   async componentDidMount() {
     try {
-      const existsWallet = await WalletProvider.initWalletFromStorage();
-      const identity = JSON.parse(await IdentityProvider.retrieveIdentityId());
+      const existsWallet: boolean = await WalletProvider.initWalletFromStorage();
+      const identity: { id: string, hash: string } = await IdentityProvider.retrieveIdentity();
 
       if(existsWallet && identity) {
-        this.setState({ alreadySignedUp: true, identityId: identity.identityId, identityHash: identity.identityHash });
+        this.setState({ alreadySignedUp: true, identity });
       } else {
         this.setState({ ...this.state, alreadySignedUp: false });
       }
@@ -36,12 +54,12 @@ export default class Home extends React.Component {
   }
 
   async navigateToProfile() {
-    const privateKey = WalletProvider.instance.getPrivateKeyString();
-    const tree = await IdentityProvider.instance.getTreeData(this.state.identityHash, true, privateKey);
-    const userData = IdentityProvider.factoryUserData(tree);
+    const privateKey: string = WalletProvider.instance.getPrivateKeyString();
+    const tree: { childrens: [] } = await IdentityProvider.instance.getTreeData(this.state.identity.hash, true, privateKey);
+    const userData: Identity = IdentityProvider.factoryUserData(tree);
 
     this.props.navigation.navigate('Profile', {
-      profileHash: this.state.identityHash,
+      profileHash: this.state.identity.hash,
       ...userData,
     });
   }
@@ -60,8 +78,8 @@ export default class Home extends React.Component {
                 this.state.alreadySignedUp === true ?
                   <Button
                     onPress={() => this.navigateToProfile()}
-                    label={`Sign in as @${this.state.identityId}`}
-                    accessibilityLabel={`Sign in as @${this.state.identityId}`}
+                    label={`Sign in as @${this.state.identity.id}`}
+                    accessibilityLabel={`Sign in as @${this.state.identity.id}`}
                   /> :
                   <Button
                     onPress={() => this.props.navigation.navigate('TermsOfUse')}

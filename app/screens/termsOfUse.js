@@ -1,17 +1,28 @@
+/* @flow */
+
 import React from 'react';
+
 import { Button, Container, TextBox } from '../components';
 import * as termsOfUse from '../assets/termsOfUse.json';
 
-const TermsOfUse = ({ navigation }) => (
+import type { NavigationScreenProp } from 'react-navigation/src/TypeDefinition';
+
+type Props = {
+  navigation: NavigationScreenProp,
+};
+
+const TermsOfUse = (props: Props) => (
   <Container>
-    <TextBox>{termsOfUse.body}</TextBox>
+    <TextBox bold={false}>
+      {termsOfUse.body}
+    </TextBox>
     <Button
       label="Accept"
-      onPress={() => navigation.navigate('SeedWords')}
+      onPress={() => props.navigation.navigate('SeedWords')}
     />
     <Button
       label="Decline"
-      onPress={() => navigation.goBack()}
+      onPress={() => props.navigation.goBack()}
     />
   </Container>
 );

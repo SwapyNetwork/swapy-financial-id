@@ -1,29 +1,51 @@
+/* @flow */
+
 import React, { Component } from 'react';
 import bip39 from 'react-native-bip39';
 import { Text, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+
 import { Button, Container, TextBox } from '../components';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
 
+import type { NavigationScreenProp, NavigationResetAction } from 'react-navigation/src/TypeDefinition';
 
-const generateMnemonic = async () => {
-  try {
-    return await bip39.generateMnemonic();
-  } catch (e) {
-    return e;
-  }
+type Props = {
+  navigation: NavigationScreenProp,
 };
 
-class SeedWords extends Component {
-  constructor(props) {
+type State = {
+  mnemonic: string,
+  walletAddress: string,
+};
+ 
+
+class SeedWords extends React.Component<Props, State> {
+  state = { mnemonic: '', walletAddress: '' };
+  
+  constructor(props: any) {
     super(props);
-    this.state = { mnemonic: '', walletAddress: '' };
     this.setSeedWords();
   }
 
-  resetNavigation(targetRoute) {
-    const resetAction = NavigationActions.reset({
+  async generateMnemonic() {
+    try {
+      return await bip39.generateMnemonic();
+    } catch (e) {
+      return e;
+    }
+  }
+  
+  async setSeedWords() {
+    const mnemonic = await this.generateMnemonic();
+
+    await WalletProvider.newWallet(mnemonic);
+    this.setState({ mnemonic, walletAddress: WalletProvider.instance.getAddressString() });
+  }
+
+  resetNavigation(targetRoute: string) {
+    const resetAction: NavigationResetAction = NavigationActions.reset({
       index: 0,
       actions: [
         NavigationActions.navigate({ routeName: targetRoute }),
@@ -32,22 +54,15 @@ class SeedWords extends Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-  async setSeedWords() {
-    const mnemonic = await generateMnemonic();
-    // Dsiable wallet creation for dev purposes @todo remind to uncoment this.
-    await WalletProvider.newWallet(mnemonic);
-    this.setState({ mnemonic, walletAddress: WalletProvider.instance.getAddressString() });
-  }
-
-  setAccount = async () => {
-    const privateKey = await WalletProvider.retrieveKey();
+  async setAccount() {
+    const privateKey: string = await WalletProvider.retrieveKey();
 
     IdentityProvider
       .instance
       .addAccountFromPrivateKey(`0x${privateKey}`);
 
     this.resetNavigation('SignUp');
-  };
+  }
 
   render() {
     return (

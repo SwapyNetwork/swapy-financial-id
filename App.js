@@ -1,5 +1,6 @@
 /* @flow */
 /* eslint-disable */
+
 import './shim.js'
 
 import React from 'react';

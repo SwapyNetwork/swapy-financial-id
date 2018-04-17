@@ -1,10 +1,10 @@
 /* @flow */
 
-import React from 'react';
+import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 type Props = {
-  children: [],
+  children? : React.Node,
 };
 
 const Container = (props: Props) => (

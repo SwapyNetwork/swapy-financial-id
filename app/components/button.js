@@ -5,7 +5,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 type Props = {
   label: string,
-  onPress: () => () => {},
+  onPress: () => any,
 };
 
 const Button = ({ label, onPress }: Props) => (

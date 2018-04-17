@@ -1,3 +1,5 @@
+/* @flow */
+
 import React from 'react';
 import { TextInput, StyleSheet, KeyboardAvoidingView, ActivityIndicator, Alert } from 'react-native';
 import { NavigationActions } from 'react-navigation';
@@ -6,26 +8,50 @@ import { Button, Balances } from '../components';
 import IdentityProvider from '../lib/identity';
 import WalletProvider from '../lib/wallet';
 
-const fields = [
-  { placeholder: 'Full name', stateKey: 'name' },
-  { placeholder: 'Email', stateKey: 'email', keyboardType: 'email-address' },
-  { placeholder: 'Mobile phone', stateKey: 'mobilePhone', keyboardType: 'phone-pad' },
-  { placeholder: 'Username', stateKey: 'username' },
-  { placeholder: 'USD Yearly Income', stateKey: 'yearlyIncome' },
-];
+import type { NavigationScreenProp, NavigationResetAction, NavigationParams } from 'react-navigation/src/TypeDefinition';
 
-export default class SignUp extends React.Component {
+type Props = {
+  navigation: NavigationScreenProp,
+};
+
+type State = {
+  isWaitingEthereum: boolean,
+  username: string,
+  email: string,
+  name: string,
+  mobilePhone: number,
+  yearlyIncome: string,
+};
+
+type Field = {
+  placeholder: string,
+  stateKey: string,
+  keyboardType?: string,
+  secureTextEntry?: string,
+};
+
+export default class SignUp extends React.Component<Props, State> {
   static navigationOptions = { headerRight: (<Balances />), headerLeft: null };
 
-  constructor() {
-    super();
-    this.state = {
-      isWaitingEthereum: false,
-    };
-  }
+  fields: Array<Field> = [
+    { placeholder: 'Username', stateKey: 'username' },
+    { placeholder: 'Full name', stateKey: 'name' },
+    { placeholder: 'Email', stateKey: 'email', keyboardType: 'email-address' },
+    { placeholder: 'Mobile phone', stateKey: 'mobilePhone', keyboardType: 'phone-pad' },
+    { placeholder: 'USD Yearly Income', stateKey: 'yearlyIncome' },
+  ];
 
-  resetNavigation(targetRoute, params) {
-    const resetAction = NavigationActions.reset({
+  state = {
+    isWaitingEthereum: false,
+    username: '',
+    email: '',
+    name: '',
+    mobilePhone: 0,
+    yearlyIncome: '',
+  };
+
+  resetNavigation(targetRoute: string, params: NavigationParams) {
+    const resetAction: NavigationResetAction = NavigationActions.reset({
       index: 0,
       actions: [
         NavigationActions.navigate({ routeName: targetRoute, params }),
@@ -34,33 +60,32 @@ export default class SignUp extends React.Component {
     this.props.navigation.dispatch(resetAction);
   }
 
-  onInputChange = (stateKey, text) => {
+  onInputChange(stateKey: string, text: string) {
     const field = {};
     field[stateKey] = text;
     this.setState(field);
-  };
+  }
 
-  validateFields = async () => {
+  async validateFields() {
     // @todo validate fields, mostly important: email and password confirmation
     try {
       this.setState({ ...this.state, isWaitingEthereum: true });
-      // console.log('FETCH =>')
-      // fetch('https://ipfs.infura.io:5001/api/v0/get?arg=%2Fipfs%2FQmS77Xc6tvW54srYXNqvLjw9Zajz2PfZq1t1tdmQqAFyEF&stream-channels=true', {method: 'POST'})
-      //   .then(function(response) {
-      //     console.log(response)
-      //     return response.text()
-      //   }).then(function(body) {
-      //     console.log(body)
-      //   })
-      const privateKey = await WalletProvider.instance.getPrivateKeyString();
-      const profileHash = await IdentityProvider
+
+      const privateKey: string = await WalletProvider.instance.getPrivateKeyString();
+      const profileHash: string = await IdentityProvider
         .instance
-        .createIpfsProfile(IdentityProvider.factoryIPFSTree(this.state), privateKey);
+        .createIpfsProfile(IdentityProvider.factoryIPFSTree({
+          username: this.state.username,
+          email: this.state.email,
+          name: this.state.name,
+          mobilePhone: this.state.mobilePhone,
+          yearlyIncome: this.state.yearlyIncome,
+        }), privateKey);
 
       const tree = await IdentityProvider.instance.getTreeData(profileHash, true, privateKey);
       const userData = IdentityProvider.factoryUserData(tree);
 
-      IdentityProvider.persistIdentityId(JSON.stringify({ identityId: userData.profileId, identityHash: profileHash }));
+      IdentityProvider.persistIdentity({ id: userData.username, hash: profileHash });
 
       this.setState({ ...this.state, isWaitingEthereum: false });
       this.resetNavigation('Profile', {
@@ -87,7 +112,7 @@ export default class SignUp extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="position" style={styles.container}>
-        {fields.map(field => (
+        {this.fields.map(field => (
           <TextInput
             style={styles.input}
             key={field.stateKey}
