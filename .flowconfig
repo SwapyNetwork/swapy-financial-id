@@ -1,7 +1,11 @@
 [untyped]
+<PROJECT_ROOT>/node_modules/react-native-tab-view/.*
+<PROJECT_ROOT>/node_modules/metro/.*
 
 [ignore]
-<PROJECT_ROOT>/node_modules/.*
+<PROJECT_ROOT>/node_modules/react-native/.*
+<PROJECT_ROOT>/node_modules/react-navigation/.*
+.*\(lib\|test\|builtin-modules\|binary-extensions\|faker\|spdx\).*\.json
 
 [include]
 

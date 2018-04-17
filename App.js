@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 /* eslint-disable */
 import './shim.js'
 
