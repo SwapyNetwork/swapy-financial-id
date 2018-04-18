@@ -8,10 +8,10 @@ import { Button, Balances } from '../components';
 import IdentityProvider from '../lib/identity';
 import WalletProvider from '../lib/wallet';
 
-import type { NavigationScreenProp, NavigationResetAction, NavigationParams } from 'react-navigation/src/TypeDefinition';
+import type { NavigationScreenProp, NavigationResetAction, NavigationParams, NavigationRoute } from 'react-navigation';
 
 type Props = {
-  navigation: NavigationScreenProp,
+  navigation: NavigationScreenProp<NavigationRoute>,
 };
 
 type State = {

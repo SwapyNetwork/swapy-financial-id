@@ -7,10 +7,10 @@ import { Button, ProfileCard, Balances } from '../components';
 import defaultStyles from '../config/styles';
 import IdentityProvider from '../lib/identity';
 
-import type { NavigationScreenProp } from 'react-navigation/src/TypeDefinition';
+import type { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 
 type Props = {
-  navigation: NavigationScreenProp,
+  navigation: NavigationScreenProp<NavigationRoute>,
 };
 
 type State = {
@@ -87,10 +87,16 @@ export default class Profile extends React.Component<Props, State> {
           <Button
             label="Publish to Blockchain"
             onPress={
-              () => this.handlePublishToBlockchain(
-                this.props.navigation.state.params.username,
-                this.props.navigation.state.params.profileHash,
-              )
+              () => { 
+                if(this.props.navigation.state.params &&
+                  typeof this.props.navigation.state.params.username === 'string' &&
+                  typeof this.props.navigation.state.params.profileHash === 'string') {
+                    this.handlePublishToBlockchain(
+                      this.props.navigation.state.params.username,
+                      this.props.navigation.state.params.profileHash,
+                    )
+                }
+              }
             }
           />
         }

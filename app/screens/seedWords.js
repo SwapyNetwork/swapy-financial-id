@@ -9,10 +9,10 @@ import { Button, Container, TextBox } from '../components';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
 
-import type { NavigationScreenProp, NavigationResetAction } from 'react-navigation/src/TypeDefinition';
+import type { NavigationScreenProp, NavigationResetAction, NavigationRoute } from 'react-navigation';
 
 type Props = {
-  navigation: NavigationScreenProp,
+  navigation: NavigationScreenProp<NavigationRoute>,
 };
 
 type State = {

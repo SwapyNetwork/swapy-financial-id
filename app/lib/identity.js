@@ -86,7 +86,7 @@ class IdentityProvider {
     }];
   }
 
-  flattenIPFSTree(ipfsResponse: { childrens: [] }, flatUserData: IpfsIdentity = {}): IpfsIdentity {
+  flattenIPFSTree(ipfsResponse: { childrens: [] }, flatUserData: IpfsIdentity = { profile_id: '' }): IpfsIdentity {
     ipfsResponse.childrens.forEach((child) => {
       if (child.childrens) this.flattenIPFSTree(child, flatUserData);
       else flatUserData[child.label] = child.data; // eslint-disable-line

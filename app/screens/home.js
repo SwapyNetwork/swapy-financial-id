@@ -10,11 +10,11 @@ import defaultStyles from '../config/styles';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
 
-import type { NavigationScreenProp } from 'react-navigation/src/TypeDefinition';
+import type { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import type { Identity } from '../lib/identity';
 
 type Props = {
-  navigation: NavigationScreenProp,
+  navigation: NavigationScreenProp<NavigationRoute>,
 };
 
 type State = {
