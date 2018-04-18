@@ -1,8 +1,19 @@
 /* @flow */
+/* eslint-disable class-methods-use-this */
 
 import { Api } from '@swapynetwork/swapy-identity-api';
 import { INFURA_KEY, NETWORK } from 'react-native-dotenv'; //eslint-disable-line
 import Storage from 'react-native-sensitive-info';
+
+type Web3 = {
+  eth: {
+    getBalance: (string) => Promise<string>,
+  },
+  utils: {
+    fromWei: (string) => string,
+    hexToNumber: (Buffer | string) => number,
+  },
+};
 
 type SwapyIdentityApi = {
   getTokenBalance: (string) => Promise<string>,
@@ -19,16 +30,6 @@ type SwapyIdentityApi = {
   getIdentityById: (string) => Promise<string>,
   addAccountFromPrivateKey: (string) => Promise<any>,
   createIpfsProfile: (Array<{}>, string) => Promise<any>
-};
-
-type Web3 = {
-  eth: {
-    getBalance: (string) => Promise<string>,
-  },
-  utils: {
-    fromWei: (string) => string,
-    hexToNumber: (Buffer | string) => number,
-  },
 };
 
 type CachedIdentity = {

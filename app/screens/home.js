@@ -2,15 +2,15 @@
 /* eslint-disable global-require */
 
 import React from 'react';
-import { Text, Image, StyleSheet, View, ActivityIndicator } from 'react-native';
+import { Image, StyleSheet, View, ActivityIndicator } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+
 import { Button } from '../components';
 import defaultStyles from '../config/styles';
-
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
 
-import type { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import type { NavigationScreenProp, NavigationRoute } from 'react-navigation'; // eslint-disable-line
 import type { Identity } from '../lib/identity';
 
 type Props = {
@@ -41,13 +41,13 @@ export default class Home extends React.Component<Props, State> {
       const existsWallet: boolean = await WalletProvider.initWalletFromStorage();
       const identity: { id: string, hash: string } = await IdentityProvider.retrieveIdentity();
 
-      if(existsWallet && identity) {
+      if (existsWallet && identity) {
         this.setState({ alreadySignedUp: true, identity });
       } else {
         this.setState({ ...this.state, alreadySignedUp: false });
       }
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
 
     SplashScreen.hide();
@@ -64,6 +64,21 @@ export default class Home extends React.Component<Props, State> {
     });
   }
 
+  renderButton() {
+    if (this.state.alreadySignedUp === true) {
+      return (<Button
+        onPress={() => this.navigateToProfile()}
+        label={`Sign in as @${this.state.identity.id}`}
+        accessibilityLabel={`Sign in as @${this.state.identity.id}`}
+      />);
+    }
+    return (<Button
+      onPress={() => this.props.navigation.navigate('TermsOfUse')}
+      label="Create account"
+      accessibilityLabel="Create account"
+    />);
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -74,19 +89,7 @@ export default class Home extends React.Component<Props, State> {
         {
           this.state.alreadySignedUp === undefined ?
             <ActivityIndicator size="large" color={defaultStyles.colors.primary} /> :
-              (
-                this.state.alreadySignedUp === true ?
-                  <Button
-                    onPress={() => this.navigateToProfile()}
-                    label={`Sign in as @${this.state.identity.id}`}
-                    accessibilityLabel={`Sign in as @${this.state.identity.id}`}
-                  /> :
-                  <Button
-                    onPress={() => this.props.navigation.navigate('TermsOfUse')}
-                    label="Create account"
-                    accessibilityLabel="Create account"
-                  />
-              )
+            this.renderButton()
         }
       </View>
     );

@@ -17,6 +17,8 @@ const TextBox = (props: Props) => (
   </ScrollView>
 );
 
+TextBox.defaultProps = { children: [] };
+
 export default TextBox;
 
 const styles = StyleSheet.create({

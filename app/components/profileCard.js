@@ -7,7 +7,7 @@ import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 import mainStyles from '../config/styles';
 
 type Props = {
-  name: string,
+  name?: string,
   email?: string,
   phone?: string,
   yearlyIncome?: number,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 30,
   },
-  propertyIcon: {
+  propertyIcon: { // eslint-disable object-curly-newline
     width: 40,
   },
   propertyText: {

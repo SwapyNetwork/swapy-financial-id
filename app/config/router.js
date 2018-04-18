@@ -1,4 +1,5 @@
 /* @flow */
+/* eslint-disable object-curly-newline */
 
 import { StackNavigator } from 'react-navigation';
 

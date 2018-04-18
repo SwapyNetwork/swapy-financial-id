@@ -5,7 +5,7 @@ import React from 'react';
 import { Button, Container, TextBox } from '../components';
 import * as termsOfUse from '../assets/termsOfUse.json';
 
-import type { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import type { NavigationScreenProp, NavigationRoute } from 'react-navigation'; // eslint-disable-line
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute>,

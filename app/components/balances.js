@@ -2,12 +2,10 @@
 
 import * as React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { setInterval } from 'core-js';
 
 import Styles from '../config/styles';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
-
 
 type Props = {};
 type State = {
@@ -20,7 +18,7 @@ export default class Balances extends React.Component<Props, State> {
     ethBalance: undefined,
     swapyBalance: undefined,
   };
-  
+
   componentDidMount() {
     this.loadBalances();
     setInterval(() => {
@@ -29,7 +27,7 @@ export default class Balances extends React.Component<Props, State> {
   }
 
   getSwapyBalance = async (identityAddress: string): Promise<any> => IdentityProvider.instance.getTokenBalance(identityAddress);
-  
+
   getEthBalance = async (walletAddress: string) => IdentityProvider.instance.getWeb3().eth.getBalance(walletAddress);
 
   async loadBalances() {
@@ -66,8 +64,6 @@ export default class Balances extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  balances: {
-  },
   text: {
     marginRight: 15,
     color: Styles.colors.white,

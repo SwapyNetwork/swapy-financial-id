@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00aeef',
     alignItems: 'center',
   },
-  label: {
+  label: { // eslint-disable object-curly-newline
     color: 'white',
   },
 });

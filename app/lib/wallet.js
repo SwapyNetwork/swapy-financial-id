@@ -11,10 +11,6 @@ type EthereumJsWalletHdKey = {
   getPrivateKeyString: () => string,
 };
 
-type EthereumJsWallet = {
-  fromPrivateKey: Promise<EthereumJsWalletHdKey>,
-};
-
 class WalletProvider {
   instance: EthereumJsWalletHdKey;
 
@@ -53,9 +49,8 @@ class WalletProvider {
         this.instance = await ethWallet
           .fromPrivateKey(Buffer.from(privateKey, 'hex'));
         return true;
-      } else {
-        return false;
       }
+      return false;
     } catch (err) {
       throw new Error(err.message);
     }

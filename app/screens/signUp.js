@@ -8,7 +8,7 @@ import { Button, Balances } from '../components';
 import IdentityProvider from '../lib/identity';
 import WalletProvider from '../lib/wallet';
 
-import type { NavigationScreenProp, NavigationResetAction, NavigationParams, NavigationRoute } from 'react-navigation';
+import type { NavigationScreenProp, NavigationResetAction, NavigationParams, NavigationRoute } from 'react-navigation'; // eslint-disable-line
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute>,
@@ -33,14 +33,6 @@ type Field = {
 export default class SignUp extends React.Component<Props, State> {
   static navigationOptions = { headerRight: (<Balances />), headerLeft: null };
 
-  fields: Array<Field> = [
-    { placeholder: 'Username', stateKey: 'username' },
-    { placeholder: 'Full name', stateKey: 'name' },
-    { placeholder: 'Email', stateKey: 'email', keyboardType: 'email-address' },
-    { placeholder: 'Mobile phone', stateKey: 'mobilePhone', keyboardType: 'phone-pad' },
-    { placeholder: 'USD Yearly Income', stateKey: 'yearlyIncome' },
-  ];
-
   state = {
     isWaitingEthereum: false,
     username: '',
@@ -50,6 +42,20 @@ export default class SignUp extends React.Component<Props, State> {
     yearlyIncome: '',
   };
 
+  fields: Array<Field> = [ // eslint-disable-line
+    { placeholder: 'Username', stateKey: 'username' },
+    { placeholder: 'Full name', stateKey: 'name' },
+    { placeholder: 'Email', stateKey: 'email', keyboardType: 'email-address' },
+    { placeholder: 'Mobile phone', stateKey: 'mobilePhone', keyboardType: 'phone-pad' },
+    { placeholder: 'USD Yearly Income', stateKey: 'yearlyIncome' },
+  ];
+
+  onInputChange(stateKey: string, text: string) {
+    const field = {};
+    field[stateKey] = text;
+    this.setState(field);
+  }
+
   resetNavigation(targetRoute: string, params: NavigationParams) {
     const resetAction: NavigationResetAction = NavigationActions.reset({
       index: 0,
@@ -58,12 +64,6 @@ export default class SignUp extends React.Component<Props, State> {
       ],
     });
     this.props.navigation.dispatch(resetAction);
-  }
-
-  onInputChange(stateKey: string, text: string) {
-    const field = {};
-    field[stateKey] = text;
-    this.setState(field);
   }
 
   async validateFields() {
@@ -107,7 +107,7 @@ export default class SignUp extends React.Component<Props, State> {
         { cancelable: false },
       );
     }
-  };
+  }
 
   render() {
     return (
@@ -140,8 +140,6 @@ export default class SignUp extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  container: {
-  },
   input: {
     marginHorizontal: '5%',
     marginTop: 10,

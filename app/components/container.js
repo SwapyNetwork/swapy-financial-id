@@ -13,8 +13,8 @@ const Container = (props: Props) => (
   </View>
 );
 
+Container.defaultProps = { children: [] };
+
 export default Container;
 
-const styles = StyleSheet.create({
-  container: {},
-});
+const styles = StyleSheet.create({ container: {} });

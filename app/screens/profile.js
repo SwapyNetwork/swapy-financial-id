@@ -7,7 +7,7 @@ import { Button, ProfileCard, Balances } from '../components';
 import defaultStyles from '../config/styles';
 import IdentityProvider from '../lib/identity';
 
-import type { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import type { NavigationScreenProp, NavigationRoute } from 'react-navigation'; // eslint-disable-line
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute>,
@@ -27,7 +27,7 @@ export default class Profile extends React.Component<Props, State> {
     identityAddress: undefined,
     isWaitingEthereum: false,
   };
-  
+
   async handlePublishToBlockchain(profileId: string, profileHash: string) {
     this.setState({ ...this.state, isWaitingEthereum: true });
     try {
@@ -87,14 +87,14 @@ export default class Profile extends React.Component<Props, State> {
           <Button
             label="Publish to Blockchain"
             onPress={
-              () => { 
-                if(this.props.navigation.state.params &&
+              () => {
+                if (this.props.navigation.state.params &&
                   typeof this.props.navigation.state.params.username === 'string' &&
                   typeof this.props.navigation.state.params.profileHash === 'string') {
                     this.handlePublishToBlockchain(
                       this.props.navigation.state.params.username,
                       this.props.navigation.state.params.profileHash,
-                    )
+                    );
                 }
               }
             }
@@ -130,7 +130,7 @@ export default class Profile extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  view: {
+  view: { // eslint-disable object-curly-line
     flex: 1,
   },
 });

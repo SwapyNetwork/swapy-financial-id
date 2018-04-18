@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 if (typeof global !== 'undefined') {
   var self = global.self;
 }
