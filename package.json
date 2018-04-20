@@ -6,19 +6,26 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "test": "npm run flow && npm run lint && node node_modules/jest/bin/jest.js",
     "apk": "cd android && ./gradlew assembleRelease",
+    "test": "npm run flow && npm run lint && npm run jest",
+    "jest": "jest",
     "lint": "eslint .",
     "flow": "flow",
     "nodeify": "rn-nodeify --hack --install \"crypto, buffer, stream\" --yarn",
     "fix-start": "echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|react-navigation|react-native-splash-screen|react-native-vector-icons|react-native-vector-icons/Feather|react-native-vector-icons/FontAwesome|react-native-sensitive-info)/)"
+    ],
+    "setupTestFrameworkScriptFile": "./tests/setup.js"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "babel-preset-react-native-stage-0": "^1.0.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
@@ -29,7 +36,9 @@
     "jest": "^22.4.3",
     "jest-react-native": "^18.0.0",
     "react-native-dotenv": "^0.1.1",
-    "react-test-renderer": "16.2.0",
+    "react-native-mock": "^0.3.1",
+    "react-native-mock-render": "^0.0.22",
+    "react-test-renderer": "16.3.0-alpha.1",
     "rn-nodeify": "^10.0.0"
   },
   "dependencies": {
@@ -46,6 +55,7 @@
     "process": "^0.11.0",
     "querystring-es3": "~0.2.0",
     "react": "16.2.0",
+    "react-dom": "^16.3.2",
     "react-native": "^0.54.4",
     "react-native-bip39": "^2.3.0",
     "react-native-browser-polyfill": "^0.1.2",

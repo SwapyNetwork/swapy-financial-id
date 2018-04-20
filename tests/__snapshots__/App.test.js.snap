@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    Array [
+      Object {
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    onMoveShouldSetResponder={[Function]}
+    onMoveShouldSetResponderCapture={[Function]}
+    onResponderEnd={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderReject={[Function]}
+    onResponderRelease={[Function]}
+    onResponderStart={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    onStartShouldSetResponderCapture={[Function]}
+    style={
+      Array [
+        Object {
+          "flex": 1,
+          "flexDirection": "column-reverse",
+        },
+        Object {
+          "backgroundColor": "#000",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        collapsable={undefined}
+        pointerEvents="auto"
+        style={
+          Object {
+            "backgroundColor": "#E9E9EF",
+            "bottom": 0,
+            "left": 0,
+            "opacity": 1,
+            "position": "absolute",
+            "right": 0,
+            "shadowColor": "black",
+            "shadowOffset": Object {
+              "height": 0,
+              "width": 0,
+            },
+            "shadowOpacity": 0.2,
+            "shadowRadius": 5,
+            "top": 0,
+            "transform": Array [
+              Object {
+                "translateX": 0,
+              },
+              Object {
+                "translateY": 0,
+              },
+            ],
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#fff",
+              "flex": 1,
+              "justifyContent": "center",
+              "width": "100%",
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "testUri": "../../../app/assets/logo.png",
+              }
+            }
+            style={
+              Object {
+                "height": 150,
+                "width": 150,
+              }
+            }
+          />
+          <ActivityIndicator
+            animating={true}
+            color="#00adef"
+            hidesWhenStopped={true}
+            size="large"
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
