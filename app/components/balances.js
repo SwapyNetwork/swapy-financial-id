@@ -19,8 +19,8 @@ export default class Balances extends React.Component<Props, State> {
     swapyBalance: undefined,
   };
 
-  componentDidMount() {
-    this.loadBalances();
+  async componentDidMount() {
+    await this.loadBalances();
     setInterval(() => {
       this.loadBalances();
     }, 10000);

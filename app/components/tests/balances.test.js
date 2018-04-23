@@ -1,9 +1,10 @@
-/* global describe, expect */
+/* global describe, expect, it, jest */
 /* eslint-disable object-curly-newline */
+/* eslint-disable global-require */
 
 import React from 'react';
+import { Text } from 'react-native';
 import { mount } from 'enzyme';
-import * as jest from 'jest';
 
 import { Balances } from '../';
 
@@ -15,10 +16,12 @@ jest.mock('../../lib/wallet', () => ({
 
 jest.mock('../../lib/identity', () => ({
   instance: {
-    getTokenBalance: async () => '3.123123123',
+    getTokenBalance: jest.fn()
+      .mockReturnValueOnce('2.00000')
+      .mockReturnValue('5.00000'),
     getWeb3: () => ({
       eth: {
-        getBalance: async () => '0.444444',
+        getBalance: jest.fn(async () => '1.0000000'),
       },
       utils: {
         fromWei: number => number,
@@ -30,10 +33,26 @@ jest.mock('../../lib/identity', () => ({
   },
 }));
 
-describe('<Balances />', async () => {
-  const balances = mount(<Balances />);
-  setTimeout(() => {}, 1000);
-  console.log(balances.find('Text').at(0).childAt(0))
+jest.useFakeTimers();
 
-  expect(balances.text()).toEqual('On');
+describe('<Balances />', async () => {
+  it('ensures the text output for the balances is correct', async () => {
+    const wrapper = mount(<Balances />);
+
+    process.nextTick(() => {
+      expect(require('../../lib/identity').instance.getTokenBalance).toHaveBeenCalledTimes(1);
+      expect(wrapper.find(Text).at(0).text()).toEqual('1.000 ETH');
+      expect(wrapper.find(Text).at(1).text()).toEqual('2.000 SWAPY');
+    });
+  });
+
+  it('verifies if the component text changes after a change in the SWAPY balance', async () => {
+    const wrapper = mount(<Balances />);
+
+    jest.runOnlyPendingTimers();
+    process.nextTick(() => {
+      expect(wrapper.find(Text).at(0).text()).toEqual('1.000 ETH');
+      expect(wrapper.find(Text).at(1).text()).toEqual('5.000 SWAPY');
+    });
+  });
 });
