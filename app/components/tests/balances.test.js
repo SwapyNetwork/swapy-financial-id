@@ -39,7 +39,7 @@ describe('<Balances />', async () => {
   it('ensures the text output for the balances is correct', async () => {
     const wrapper = mount(<Balances />);
 
-    process.nextTick(() => {
+    process.nextTick(() => { // Ensures componentDidMount was called
       expect(require('../../lib/identity').instance.getTokenBalance).toHaveBeenCalledTimes(1);
       expect(wrapper.find(Text).at(0).text()).toEqual('1.000 ETH');
       expect(wrapper.find(Text).at(1).text()).toEqual('2.000 SWAPY');
@@ -53,6 +53,17 @@ describe('<Balances />', async () => {
     process.nextTick(() => {
       expect(wrapper.find(Text).at(0).text()).toEqual('1.000 ETH');
       expect(wrapper.find(Text).at(1).text()).toEqual('5.000 SWAPY');
+    });
+  });
+
+  it('ensures no SWAPY value is outputted if there is no identity available', async () => {
+    require('../../lib/identity').cachedIdentity.address = undefined;
+
+    const wrapper = mount(<Balances />);
+
+    process.nextTick(() => {
+      expect(wrapper.find(Text).at(0).text()).toEqual('1.000 ETH');
+      expect(wrapper.find(Text).at(1).text()).toEqual('');
     });
   });
 });
