@@ -1,35 +1,43 @@
-/* @flow */
+/* global describe, expect, it, jest */
+/* eslint-disable object-curly-newline */
+/* eslint-disable global-require */
 
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
+import { mount } from 'enzyme';
 
-type Props = {
-  label: string,
-  onPress: () => any,
-};
+import { Button } from '../';
 
-const Button = ({ label, onPress }: Props) => (
-  <View>
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.label}>{ label }</Text>
-    </TouchableOpacity>
-  </View>
-);
+describe('<Button />', async () => {
+  it('ensures the text output for the balances is correct', async () => {
+    const onPress = jest.fn();
+    const wrapper = mount(<Button label="test" onPress={onPress} />);
 
-export default Button;
+    wrapper.find(TouchableOpacity).simulate('press');
 
-const styles = StyleSheet.create({
-  button: {
-    marginVertical: 10,
-    marginHorizontal: 20,
-    padding: 10,
-    borderRadius: 20,
-    borderBottomWidth: 0,
-    backgroundColor: '#00aeef',
-    alignItems: 'center',
-  },
-  label: { // eslint-disable object-curly-newline
-    color: 'white',
-  },
+    expect(onPress).toHaveBeenCalledTimes(1);
+    //expect(wrapper.find(Text).at(0).text()).toEqual('1.000 ETH');
+    //expect(wrapper.find(Text).at(1).text()).toEqual('2.000 SWAPY');
+  });
+
+  it('verifies if the component text changes after a change in the SWAPY balance', async () => {
+    const wrapper = mount(<Balances />);
+
+    jest.runOnlyPendingTimers();
+    process.nextTick(() => {
+      expect(wrapper.find(Text).at(0).text()).toEqual('1.000 ETH');
+      expect(wrapper.find(Text).at(1).text()).toEqual('5.000 SWAPY');
+    });
+  });
+
+  it('ensures no SWAPY value is outputted if there is no identity available', async () => {
+    require('../../lib/identity').cachedIdentity.address = undefined;
+
+    const wrapper = mount(<Balances />);
+
+    process.nextTick(() => {
+      expect(wrapper.find(Text).at(0).text()).toEqual('1.000 ETH');
+      expect(wrapper.find(Text).at(1).text()).toEqual('');
+    });
+  });
 });
-
