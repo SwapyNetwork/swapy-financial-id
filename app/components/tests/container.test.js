@@ -1,20 +1,17 @@
-/* @flow */
+/* global describe, expect, it, jest */
+/* eslint-disable object-curly-newline */
+/* eslint-disable global-require */
 
-import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import { Text } from 'react-native';
+import { shallow } from 'enzyme';
 
-type Props = {
-  children? : React.Node,
-};
+import { Container } from '../';
 
-const Container = (props: Props) => (
-  <View style={styles.container} >
-    {props.children}
-  </View>
-);
+describe('<Container />', async () => {
+  it('should render children components', async () => {
+    const wrapper = shallow(<Container><Text>test</Text></Container>);
 
-Container.defaultProps = { children: [] };
-
-export default Container;
-
-const styles = StyleSheet.create({ container: {} });
+    expect(wrapper.find(Text).render().text()).toEqual('test');
+  });
+});
