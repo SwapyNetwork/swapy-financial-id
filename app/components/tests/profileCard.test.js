@@ -1,7 +1,7 @@
-/* global describe, expect, it, jest */
+/* global describe, expect, it */
 
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text } from 'react-native';
 import { shallow } from 'enzyme';
 
 import { ProfileCard } from '../';
@@ -14,8 +14,11 @@ describe('<ProfileCard />', async () => {
       phone: '123456',
       yearlyIncome: '10',
     };
-  
-    const wrapper = shallow(<ProfileCard ...profile />);
-    expect(wrapper.find(Text).get(0).render().text()).toEqual(profile.name);
+
+    const wrapper = shallow(<ProfileCard {...profile} />);
+    expect(wrapper.find(Text).at(0).render().text()).toEqual(profile.name);
+    expect(wrapper.find(Text).at(1).render().text()).toEqual(profile.email);
+    expect(wrapper.find(Text).at(2).render().text()).toEqual(profile.phone);
+    expect(wrapper.find(Text).at(3).render().text()).toEqual(`US$ ${profile.yearlyIncome}`);
   });
 });

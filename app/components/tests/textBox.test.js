@@ -1,44 +1,26 @@
-/* @flow */
+/* global describe, expect, it */
 
-import * as React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import mainStyles from '../config/styles';
+import React from 'react';
+import { Text } from 'react-native';
+import { shallow } from 'enzyme';
 
-type Props = {
-  bold: boolean,
-  children?: React.Node,
-};
+import { TextBox } from '../';
 
-const TextBox = (props: Props) => (
-  <ScrollView style={styles.container} >
-    <Text style={props.bold ? styles.textBold : styles.text}>
-      {props.children}
-    </Text>
-  </ScrollView>
-);
+describe('<TextBox />', async () => {
+  it('should render text passed as children', async () => {
+    const wrapper = shallow(<TextBox>test</TextBox>);
+    expect(wrapper.find(Text).render().text()).toEqual('test');
+  });
 
-TextBox.defaultProps = { children: [] };
+  it('should be bold when bold prop is true', async () => {
+    const wrapper = shallow(<TextBox bold>test</TextBox>);
+    expect(wrapper.find(Text).render().text()).toEqual('test');
+    expect(wrapper.find(Text).render().prop('style')).toHaveProperty('font-weight', 'bold');
+  });
 
-export default TextBox;
-
-const styles = StyleSheet.create({
-  container: {
-    maxHeight: '70%',
-    borderRadius: 10,
-    borderStyle: 'solid',
-    backgroundColor: mainStyles.colors.white,
-    margin: '5%',
-  },
-  text: {
-    padding: '3%',
-    height: '100%',
-    overflow: 'visible',
-  },
-  textBold: {
-    padding: '3%',
-    height: '100%',
-    fontSize: 26,
-    fontWeight: 'bold',
-    overflow: 'visible',
-  },
+  it('should be normal when bold prop is falsy', async () => {
+    const wrapper = shallow(<TextBox>test</TextBox>);
+    expect(wrapper.find(Text).render().text()).toEqual('test');
+    expect(wrapper.find(Text).render().prop('style')['font-weight']).toBeUndefined();
+  });
 });
