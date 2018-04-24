@@ -1,6 +1,4 @@
 /* global describe, expect, it, jest */
-/* eslint-disable object-curly-newline */
-/* eslint-disable global-require */
 
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';

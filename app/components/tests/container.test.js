@@ -1,6 +1,4 @@
-/* global describe, expect, it, jest */
-/* eslint-disable object-curly-newline */
-/* eslint-disable global-require */
+/* global describe, expect, it */
 
 import React from 'react';
 import { Text } from 'react-native';
