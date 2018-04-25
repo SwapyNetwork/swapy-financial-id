@@ -1,9 +1,7 @@
-/* global it, expect */
+/* global it, expect, jest */
 
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import * as jest from 'jest';
-
 import App from '../App';
 
 jest.mock('react-native-crypto', () => { // eslint-disable-line

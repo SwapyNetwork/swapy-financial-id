@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> renders without crashing 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "width": "100%",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#00aeef",
+        "fontSize": 48,
+        "fontWeight": "bold",
+        "top": 40,
+      }
+    }
+  >
+    Welcome
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "#00aeef",
+        "fontSize": 16,
+        "marginBottom": 40,
+        "marginTop": 25,
+      }
+    }
+  >
+    to Swapy Financial ID
+  </Text>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../app/assets/logo.png",
+      }
+    }
+    style={
+      Object {
+        "height": 150,
+        "marginBottom": 40,
+        "width": 150,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "paddingLeft": 50,
+        "paddingRight": 50,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#4a4a4a",
+          "fontSize": 16,
+          "marginBottom": 20,
+          "textAlign": "center",
+        }
+      }
+    >
+      Your Financial ID will be linked to a ETH Wallet
+    </Text>
+    <ActivityIndicator
+      animating={true}
+      color="#00aeef"
+      hidesWhenStopped={true}
+      size="large"
+    />
+  </View>
+</View>
+`;

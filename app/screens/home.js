@@ -2,7 +2,7 @@
 /* eslint-disable global-require */
 
 import React from 'react';
-import { Image, StyleSheet, View, ActivityIndicator } from 'react-native';
+import { Image, StyleSheet, View, ActivityIndicator, Text } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
 import { Button } from '../components';
@@ -72,25 +72,39 @@ export default class Home extends React.Component<Props, State> {
         accessibilityLabel={`Sign in as @${this.state.identity.id}`}
       />);
     }
-    return (<Button
-      onPress={() => this.props.navigation.navigate('TermsOfUse')}
-      label="Create account"
-      accessibilityLabel="Create account"
-    />);
+    return (
+      <View>
+        <Button
+          onPress={() => this.props.navigation.navigate('TermsOfUse')}
+          label="Create new wallet"
+          accessibilityLabel="Create new wallet"
+        />
+        <Button
+          onPress={() => {}}
+          label="Import exisiting wallet"
+          accessibilityLabel="Import exisiting wallet"
+        />
+      </View>
+    );
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <Text style={styles.welcome}>Welcome</Text>
+        <Text style={styles.subWelcome}>to Swapy Financial ID</Text>
         <Image
           source={require('../assets/logo.png')}
-          style={{ width: 150, height: 150 }}
+          style={{ width: 150, height: 150, marginBottom: 40 }}
         />
-        {
-          this.state.alreadySignedUp === undefined ?
-            <ActivityIndicator size="large" color={defaultStyles.colors.primary} /> :
-            this.renderButton()
-        }
+        <View style={styles.buttons}>
+          <Text style={styles.regular}>Your Financial ID will be linked to a ETH Wallet</Text>
+          {
+            this.state.alreadySignedUp === undefined ?
+              <ActivityIndicator size="large" color={defaultStyles.colors.primary} /> :
+              this.renderButton()
+          }
+        </View>
       </View>
     );
   }
@@ -101,8 +115,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
     width: '100%',
+  },
+  welcome: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: defaultStyles.colors.primary,
+    top: 40,
+  },
+  subWelcome: {
+    fontSize: 16,
+    marginTop: 25,
+    marginBottom: 40,
+    color: defaultStyles.colors.primary,
+  },
+  regular: {
+    fontSize: 16,
+    marginBottom: 20,
+    color: defaultStyles.colors.gray,
+    textAlign: 'center',
+  },
+  buttons: {
+    width: '100%',
+    paddingLeft: 50,
+    paddingRight: 50,
   },
 });
 
