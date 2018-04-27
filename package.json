@@ -7,10 +7,11 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "apk": "cd android && ./gradlew assembleRelease",
-    "test": "npm run flow && npm run lint && npm run jest",
+    "test": "npm run flow && npm run coverage.flow && npm run lint && npm run jest",
     "jest": "jest",
     "lint": "eslint .",
     "flow": "flow",
+    "coverage.flow": "flow-coverage-report -i App.js -i 'app/**/*.js' -x 'app/**/tests/*.js'", 
     "nodeify": "rn-nodeify --hack --install \"crypto, buffer, stream, zlib, os, http, https, vm, path, constants\" --yarn",
     "fix-start": "echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
   },
@@ -19,7 +20,8 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(react-native|react-navigation|react-native-splash-screen|react-native-vector-icons|react-native-vector-icons/Feather|react-native-vector-icons/FontAwesome|react-native-sensitive-info)/)"
     ],
-    "setupTestFrameworkScriptFile": "./tests/setup.js"
+    "setupTestFrameworkScriptFile": "./tests/setup.js",
+    "collectCoverage": true
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
@@ -32,6 +34,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.1",
     "flow-bin": "0.64.0",
+    "flow-coverage-report": "^0.5.0",
     "flow-typed": "^2.4.0",
     "jest": "^22.4.3",
     "jest-react-native": "^18.0.0",
