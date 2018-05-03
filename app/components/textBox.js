@@ -7,23 +7,27 @@ import mainStyles from '../config/styles';
 type Props = {
   bold: boolean,
   children?: React.Node,
+  extraStyles?: {},
 };
 
 const TextBox = (props: Props) => (
-  <ScrollView style={styles.container} >
+  <ScrollView style={[styles.container, props.extraStyles]} >
     <Text style={props.bold ? styles.textBold : styles.text}>
       {props.children}
     </Text>
   </ScrollView>
 );
 
-TextBox.defaultProps = { children: [] };
+TextBox.defaultProps = {
+  children: [],
+  extraStyles: {},
+};
 
 export default TextBox;
 
 const styles = StyleSheet.create({
   container: {
-    maxHeight: '70%',
+    maxHeight: '75%',
     borderRadius: 10,
     borderStyle: 'solid',
     backgroundColor: mainStyles.colors.white,

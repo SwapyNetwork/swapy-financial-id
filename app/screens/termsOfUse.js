@@ -19,11 +19,13 @@ const TermsOfUse = (props: Props) => (
     </TextBox>
     <View style={styles.buttons}>
       <Button
+        extraStyle={styles.button}
         label="Decline"
         onPress={() => props.navigation.goBack()}
         buttonStyle="transparent"
       />
       <Button
+        extraStyle={styles.button}
         label="Accept"
         onPress={() => props.navigation.navigate('SeedWords')}
       />
@@ -34,8 +36,10 @@ const TermsOfUse = (props: Props) => (
 export default TermsOfUse;
 
 const styles = StyleSheet.create({
-  buttons: {
-    flex: 1,
+  buttons: { // eslint-disable-line
     flexDirection: 'row',
+  },
+  button: { // eslint-disable-line
+    flex: 0.5,
   },
 });

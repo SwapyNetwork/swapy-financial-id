@@ -9,6 +9,8 @@ import { Button, Container, TextBox } from '../components';
 import WalletProvider from '../lib/wallet';
 import IdentityProvider from '../lib/identity';
 
+import defaultStyles from '../config/styles';
+
 import type { NavigationScreenProp, NavigationResetAction, NavigationRoute } from 'react-navigation'; // eslint-disable-line
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute>,
@@ -16,9 +18,7 @@ type Props = {
 
 type State = {
   mnemonic: string,
-  walletAddress: string,
 };
-
 
 class SeedWords extends React.Component<Props, State> {
   static async generateMnemonic() {
@@ -34,13 +34,13 @@ class SeedWords extends React.Component<Props, State> {
     this.setSeedWords();
   }
 
-  state = { mnemonic: '', walletAddress: '' };
+  state = { mnemonic: '' };
 
   async setSeedWords() {
     const mnemonic = await SeedWords.generateMnemonic();
 
     await WalletProvider.newWallet(mnemonic);
-    this.setState({ mnemonic, walletAddress: WalletProvider.instance.getAddressString() });
+    this.setState({ mnemonic });
   }
 
   async setAccount() {
@@ -66,15 +66,12 @@ class SeedWords extends React.Component<Props, State> {
   render() {
     return (
       <Container>
-        <Text style={styles.text}>
-          {'We\'ve generated your account... These 12 words are the only way to restore your Financial Identity. Save them somewhere safe and secret and don\'t ever lose it!'}
+        <Text style={styles.bigText}>
+          {'Save these words'}
         </Text>
         <TextBox bold style={{ fontWeight: 'bold' }}>{ this.state.mnemonic }</TextBox>
         <Text style={styles.text}>
-          {'This is your wallet address:'}
-        </Text>
-        <Text style={styles.boldText}>
-          {this.state.walletAddress}
+          {'These 12 words are the only way to restore your Financial Identity. Save them somewhere safe and secret and don\'t ever lose it!'}
         </Text>
         <Button
           label="I've copied it somewhere safe"
@@ -92,7 +89,18 @@ const styles = StyleSheet.create({
     paddingTop: '5%',
     paddingLeft: '5%',
     paddingRight: '5%',
-    fontSize: 16,
+    fontSize: 17,
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+  bigText: {
+    textAlign: 'center',
+    paddingTop: '5%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: defaultStyles.colors.primary,
   },
   boldText: {
     paddingTop: '5%',

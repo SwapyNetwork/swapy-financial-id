@@ -27,7 +27,7 @@ const HomeStack = StackNavigator({
   SeedWords: {
     screen: SeedWords,
     navigationOptions: () => ({
-      title: 'Seed Words',
+      title: 'Important!',
     }),
   },
   SignUp: {

@@ -1,6 +1,7 @@
 [untyped]
 <PROJECT_ROOT>/node_modules/react-native-tab-view/.*
 <PROJECT_ROOT>/node_modules/metro/.*
+<PROJECT_ROOT>/node_modules/react-native-tcp/.*
 
 [ignore]
 <PROJECT_ROOT>/node_modules/react-native/.*
