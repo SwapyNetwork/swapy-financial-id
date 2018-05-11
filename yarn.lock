@@ -4969,6 +4969,10 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
+http@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/http/-/http-0.0.0.tgz#86e6326d29c5d039de9fac584a45689f929f4f72"
+
 https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
@@ -4976,6 +4980,10 @@ https-browserify@^1.0.0:
 https-browserify@~0.0.0:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
+
+https@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/https/-/https-1.0.0.tgz#3c37c7ae1a8eeb966904a2ad1e975a194b7ed3a4"
 
 iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   version "0.4.19"
@@ -8103,10 +8111,6 @@ react-native-mock@^0.3.1:
 react-native-os@^1.0.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-os/-/react-native-os-1.2.1.tgz#681c27b4b4340c96f6297cf50df00ba2f6fad7cb"
-
-react-native-random-bytes@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-random-bytes/-/react-native-random-bytes-1.1.0.tgz#01b3554fbc98b5170c60fc493bb1ce8fadb2abe7"
 
 react-native-randombytes@^2.2.0:
   version "2.3.0"

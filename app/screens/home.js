@@ -79,11 +79,6 @@ export default class Home extends React.Component<Props, State> {
           label="Create new wallet"
           accessibilityLabel="Create new wallet"
         />
-        <Button
-          onPress={() => {}}
-          label="Import existing wallet"
-          accessibilityLabel="Import existing wallet"
-        />
       </View>
     );
   }
