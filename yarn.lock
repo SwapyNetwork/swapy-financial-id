@@ -8068,6 +8068,12 @@ react-native-level-fs@^3.0.0:
     level-filesystem "^1.0.1"
     levelup "^0.18.2"
 
+react-native-linear-gradient@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.4.0.tgz#51d8ea12bb72a59bede9edc87b694b16b64cf435"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-mock-render@^0.0.22:
   version "0.0.22"
   resolved "https://registry.yarnpkg.com/react-native-mock-render/-/react-native-mock-render-0.0.22.tgz#ea6a6058027c9e2b6bd8e6d0f82d4692242b7026"

@@ -10,6 +10,7 @@ export default class SignUp extends React.Component<Props> {
   render() {
     return (
       <View style={styles.container}>
+        <Button></Button>
       </View>
     );
   }
@@ -18,5 +19,6 @@ export default class SignUp extends React.Component<Props> {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: defaultStyles.colors.primary,
+    flex: 1,
   },
 });

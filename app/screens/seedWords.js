@@ -50,7 +50,7 @@ class SeedWords extends React.Component<Props, State> {
       .instance
       .addAccountFromPrivateKey(`0x${privateKey}`);
 
-    this.resetNavigation('SignUp');
+    this.resetNavigation('SignUpStart');
   }
 
   resetNavigation(targetRoute: string) {

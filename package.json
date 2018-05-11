@@ -11,7 +11,7 @@
     "jest": "jest",
     "lint": "eslint .",
     "flow": "flow",
-    "coverage.flow": "flow-coverage-report -i App.js -i 'app/**/*.js' -x 'app/**/tests/*.js'", 
+    "coverage.flow": "flow-coverage-report -i App.js -i 'app/**/*.js' -x 'app/**/tests/*.js'",
     "nodeify": "rn-nodeify --hack --install \"crypto, buffer, stream, zlib, os, http, https, vm, path, constants\" --yarn",
     "fix-start": "echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
   },
@@ -64,6 +64,7 @@
     "react-native-browser-polyfill": "^0.1.2",
     "react-native-crypto": "^2.1.0",
     "react-native-level-fs": "^3.0.0",
+    "react-native-linear-gradient": "^2.4.0",
     "react-native-os": "^1.0.1",
     "react-native-random-bytes": "^1.1.0",
     "react-native-randombytes": "^3.0.0",
