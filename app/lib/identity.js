@@ -117,7 +117,8 @@ class IdentityProvider {
 
   async retrieveIdentity(): Promise<{ id: string, hash: string }> {
     try {
-      return JSON.parse(await Storage.getItem('identity', {}));
+      const id = await Storage.getItem('identity', {});
+      return (id ? JSON.parse(id) : null);
     } catch (err) {
       throw new Error(err.message);
     }
